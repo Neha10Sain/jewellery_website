@@ -170,7 +170,7 @@ export const AdminPanelModal: React.FC<Props> = ({
         </div>
 
         {/* Tab Navigation */}
-        <div className="bg-stone-100 px-6 py-2.5 flex items-center gap-2 border-b border-stone-200">
+        <div className="bg-stone-100 px-4 sm:px-6 py-2.5 flex items-center gap-2 border-b border-stone-200 overflow-x-auto no-scrollbar">
           <button
             type="button"
             onClick={() => setActiveTab('inventory')}

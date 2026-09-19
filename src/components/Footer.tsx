@@ -5,7 +5,6 @@ import {
   Clock,
   Sparkles,
   ShieldCheck,
-  FileCode2,
   Calculator,
   UserCheck,
   ExternalLink,
@@ -13,7 +12,7 @@ import {
 import { SHOWROOMS_DATA } from '../data/jewelleryData';
 
 interface Props {
-  onOpenDeployGuide: () => void;
+  onOpenDeployGuide?: () => void;
   onOpenSavingsScheme: () => void;
   onOpenDigitalGold: () => void;
   onScrollToShowrooms: (view?: 'showroom' | 'map', showroomId?: string) => void;
@@ -23,7 +22,6 @@ interface Props {
 }
 
 export const Footer: React.FC<Props> = ({
-  onOpenDeployGuide,
   onOpenSavingsScheme,
   onOpenDigitalGold,
   onScrollToShowrooms,
@@ -76,6 +74,20 @@ export const Footer: React.FC<Props> = ({
               <span className="text-[10px] bg-[#4A1017]/90 border border-[#D4AF37]/50 px-2.5 py-1 rounded-full text-[#F5E5B8] font-bold">
                 WEDDING RENTALS
               </span>
+            </div>
+
+            {/* Direct Helpline & Contact */}
+            <div className="pt-2">
+              <span className="text-[10px] text-[#F3DE8A] uppercase tracking-wider font-semibold block">
+                Store Helpline & Concierge:
+              </span>
+              <a
+                href="tel:+919928541909"
+                className="inline-flex items-center gap-2 mt-1 text-xs font-semibold text-stone-300 hover:text-[#F3DE8A] transition-colors"
+              >
+                <Phone className="w-3.5 h-3.5 text-[#D4AF37]" />
+                <span>+91-9928541909 (Daily 9:30 AM – 8:30 PM)</span>
+              </a>
             </div>
           </div>
 
@@ -183,7 +195,13 @@ export const Footer: React.FC<Props> = ({
                   </div>
                   <p className="text-[10px] text-stone-400 truncate mt-0.5">{s.address}</p>
                   <div className="flex items-center justify-between mt-1 text-[10px]">
-                    <span className="text-[#D4AF37]">{s.phone}</span>
+                    <a
+                      href="tel:+919928541909"
+                      className="text-[#D4AF37] hover:text-[#F3DE8A] hover:underline font-bold flex items-center gap-1"
+                    >
+                      <Phone className="w-2.5 h-2.5" />
+                      <span>{s.phone}</span>
+                    </a>
                     <button
                       type="button"
                       onClick={(e) => {
@@ -201,19 +219,18 @@ export const Footer: React.FC<Props> = ({
           </div>
         </div>
 
-        {/* Bottom Bar with Free Vercel Hosting Notice */}
+        {/* Bottom Bar with Contact Helpline & BIS Notice */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-400 gap-3">
           <p>© {new Date().getFullYear()} New Friends Jewellers, Ladakh. All Rights Reserved.</p>
 
           <div className="flex items-center gap-4">
-            <button
-              type="button"
-              onClick={onOpenDeployGuide}
-              className="text-[#34D399] hover:underline flex items-center gap-1 font-semibold"
+            <a
+              href="tel:+919928541909"
+              className="text-[#F5E5B8] hover:text-[#D4AF37] flex items-center gap-1.5 font-bold"
             >
-              <FileCode2 className="w-3.5 h-3.5" />
-              <span>Vercel Free Deploy Guide</span>
-            </button>
+              <Phone className="w-3.5 h-3.5 text-[#D4AF37]" />
+              <span>Helpline: +91-9928541909</span>
+            </a>
             <span>•</span>
             <span className="text-stone-500">BIS Registration: HM/C-781920</span>
           </div>

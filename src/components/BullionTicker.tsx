@@ -110,10 +110,12 @@ export const BullionTicker: React.FC<Props> = ({ onOpenDigitalGold }) => {
             <button
               type="button"
               onClick={onOpenDigitalGold}
-              className="bg-gradient-to-r from-[#D4AF37] via-[#F3DE8A] to-[#D4AF37] text-[#3E1E05] font-bold text-[11px] px-3 py-1 rounded-full shadow-md hover:brightness-110 active:scale-95 transition-all flex items-center gap-1"
+              className="bg-gradient-to-r from-[#D4AF37] via-[#F3DE8A] to-[#D4AF37] text-[#3E1E05] font-bold text-[10px] sm:text-[11px] px-2.5 sm:px-3 py-1 rounded-full shadow-md hover:brightness-110 active:scale-95 transition-all flex items-center gap-1 shrink-0"
             >
               <Coins className="w-3 h-3 text-[#3E1E05]" />
-              <span>Save in Gold @ 0% Loss</span>
+              <span>
+                Save <span className="hidden sm:inline">in Gold @ 0% Loss</span><span className="sm:hidden">Gold</span>
+              </span>
             </button>
           </div>
         </div>

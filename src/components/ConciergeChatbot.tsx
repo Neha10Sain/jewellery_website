@@ -47,6 +47,7 @@ const QUICK_PROMPTS = [
 ];
 
 const STORE_BACKEND_PHONE_HOTLINE = '+919928541909';
+const STORE_DISPLAY_PHONE = '+91-9928541909';
 
 export const ConciergeChatbot: React.FC<ConciergeChatbotProps> = ({
   onOpenAppointment,
@@ -61,7 +62,7 @@ export const ConciergeChatbot: React.FC<ConciergeChatbotProps> = ({
     {
       id: 'welcome-1',
       sender: 'bot',
-      text: `Namaste & Welcome to **New Friends Jewellers**! ✨\n\nI am your 24/7 Royal Concierge. How can I assist you today? You can ask me for **showroom timings**, **store addresses & phone numbers**, **live gold/silver/platinum rates**, or **gemstone pricing**.`,
+      text: `Namaste & Welcome to **New Friends Jewellers**! ✨\n\nI am your 24/7 Royal Concierge. How can I assist you today? You can ask me for **showroom timings**, **store addresses & phone numbers**, **live gold/silver/platinum rates**, or call our direct helpline at **+91-9928541909**.`,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     },
   ]);
@@ -209,7 +210,7 @@ export const ConciergeChatbot: React.FC<ConciergeChatbotProps> = ({
             </span>
           </div>
 
-          <span className="text-xs sm:text-sm font-bold tracking-wide text-white">Call Store</span>
+          <span className="text-xs sm:text-sm font-bold tracking-wide text-white">Call</span>
         </motion.a>
 
         {/* Unread teaser tooltip if chatbot is closed */}
@@ -306,9 +307,20 @@ export const ConciergeChatbot: React.FC<ConciergeChatbotProps> = ({
                       Live
                     </span>
                   </div>
-                  <p className="text-[11px] text-[#D4AF37] font-sans">
-                    New Friends Jewellers • Ladakh
-                  </p>
+                  <div className="flex items-center gap-2">
+                    <p className="text-[11px] text-[#D4AF37] font-sans">
+                      New Friends Jewellers • Ladakh
+                    </p>
+                    <span className="text-[10px] text-stone-400">•</span>
+                    <a
+                      href={`tel:${STORE_BACKEND_PHONE_HOTLINE}`}
+                      className="text-[11px] text-[#F3DE8A] hover:underline flex items-center gap-1 font-semibold"
+                      title="Call Helpline: +91-9928541909"
+                    >
+                      <Phone className="w-2.5 h-2.5" />
+                      <span>+91-9928541909</span>
+                    </a>
+                  </div>
                 </div>
               </div>
 

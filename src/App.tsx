@@ -14,7 +14,6 @@ import { SavingsCalculator } from './components/SavingsCalculator';
 import { DigitalGoldModal } from './components/DigitalGoldModal';
 import { CartDrawer } from './components/CartDrawer';
 import { WishlistDrawer } from './components/WishlistDrawer';
-import { VercelDeployGuideModal } from './components/VercelDeployGuideModal';
 import { AdminPanelModal } from './components/AdminPanelModal';
 import { EMICalculatorModal } from './components/EMICalculatorModal';
 import { RentalModal } from './components/RentalModal';
@@ -57,7 +56,6 @@ export default function App() {
   const [isWishlistOpen, setIsWishlistOpen] = useState<boolean>(false);
   const [isSavingsOpen, setIsSavingsOpen] = useState<boolean>(false);
   const [isDigitalGoldOpen, setIsDigitalGoldOpen] = useState<boolean>(false);
-  const [isDeployGuideOpen, setIsDeployGuideOpen] = useState<boolean>(false);
 
   // New Modals: Admin, EMI, and Rental
   const [isAdminOpen, setIsAdminOpen] = useState<boolean>(false);
@@ -309,7 +307,6 @@ export default function App() {
         onOpenDigitalGold={() => setIsDigitalGoldOpen(true)}
         onSelectProduct={(product) => setProduct3DModalItem(product)}
         onScrollToShowrooms={scrollToShowrooms}
-        onOpenDeployGuide={() => setIsDeployGuideOpen(true)}
         onSelectCategory={(cat) => {
           setActiveCategory(cat);
           scrollToCollections();
@@ -356,7 +353,6 @@ export default function App() {
 
       {/* 7. Footer with Animated Golden Accent and Quick Triggers */}
       <Footer
-        onOpenDeployGuide={() => setIsDeployGuideOpen(true)}
         onOpenSavingsScheme={() => setIsSavingsOpen(true)}
         onOpenDigitalGold={() => setIsDigitalGoldOpen(true)}
         onScrollToShowrooms={scrollToShowrooms}
@@ -364,21 +360,6 @@ export default function App() {
         onOpenEMI={() => openEMIModal()}
         onOpenRental={() => openRentalModal()}
       />
-
-      {/* Floating Action Badges - Positioned cleanly stacked ON TOP of the Phone & Help buttons */}
-      <aside
-        aria-label="Demo and admin triggers"
-        className="fixed bottom-[126px] sm:bottom-[136px] right-5 sm:right-6 z-40 flex flex-col items-end gap-2 pointer-events-auto"
-      >
-        <button
-          type="button"
-          onClick={() => setIsDeployGuideOpen(true)}
-          className="flex items-center gap-2 bg-[#000000] text-white px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-2xl border border-stone-700 hover:border-[#34D399] hover:scale-105 active:scale-95 transition-all text-xs font-bold"
-        >
-          <span className="w-2 h-2 rounded-full bg-[#34D399] animate-ping" />
-          <span>Deploy on Vercel Free</span>
-        </button>
-      </aside>
 
       {/* Dynamic Toast Feedback */}
       {toastMessage && (
@@ -431,11 +412,6 @@ export default function App() {
         onRemoveFromWishlist={handleToggleWishlist}
         onMoveToCart={(item) => handleAddToCart(item)}
         onOpen3D={(item) => setProduct3DModalItem(item)}
-      />
-
-      <VercelDeployGuideModal
-        isOpen={isDeployGuideOpen}
-        onClose={() => setIsDeployGuideOpen(false)}
       />
 
       {/* Admin Panel Modal */}

@@ -174,10 +174,10 @@ export const HeroSection: React.FC<Props> = ({
 
             {/* Headline with Playfair Display */}
             <div>
-              <h1 className="font-playfair text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#2B090F] leading-[1.08]">
+              <h1 className="font-playfair text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#2B090F] leading-[1.1] sm:leading-[1.08]">
                 Bespoke Bridal Chokers & Fine Gold
               </h1>
-              <p className="mt-3 text-sm sm:text-base text-stone-600 leading-relaxed max-w-md">
+              <p className="mt-3 text-xs sm:text-base text-stone-600 leading-relaxed max-w-md">
                 Handcrafted 22K BIS 916 certified gold and natural solitaires, available to purchase or rent across 4 flagship boutiques in Ladakh.
               </p>
             </div>
@@ -227,11 +227,11 @@ export const HeroSection: React.FC<Props> = ({
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-3 pt-1">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1">
               <button
                 type="button"
                 onClick={onExploreClick}
-                className="bg-[#4A1017] hover:bg-[#681822] text-white px-5 py-3 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-md transition-all active:scale-95"
+                className="bg-[#4A1017] hover:bg-[#681822] text-white px-5 py-3 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 shadow-md transition-all active:scale-95 w-full sm:w-auto"
               >
                 <span>Explore Collections</span>
                 <ArrowRight className="w-4 h-4" />
@@ -240,7 +240,7 @@ export const HeroSection: React.FC<Props> = ({
               <button
                 type="button"
                 onClick={onConciergeClick}
-                className="bg-white hover:bg-stone-50 text-[#4A1017] border border-[#D4AF37] px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-2 transition-all shadow-xs"
+                className="bg-white hover:bg-stone-50 text-[#4A1017] border border-[#D4AF37] px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-all shadow-xs w-full sm:w-auto"
               >
                 <Calendar className="w-4 h-4 text-[#B38F2C]" />
                 <span>Visit 4 Ladakh Stores</span>
@@ -305,7 +305,7 @@ export const HeroSection: React.FC<Props> = ({
 
               {/* Main Visual Display */}
               {viewMode === '2d' ? (
-                <div className="relative w-full h-[400px] sm:h-[440px] rounded-2xl overflow-hidden bg-stone-900 group shadow-inner">
+                <div className="relative w-full h-[280px] sm:h-[380px] lg:h-[440px] rounded-2xl overflow-hidden bg-stone-900 group shadow-inner">
                   {/* High Quality Necklace Image */}
                   <img
                     src={activeColor.image}
@@ -345,7 +345,7 @@ export const HeroSection: React.FC<Props> = ({
                   </div>
                 </div>
               ) : (
-                <div className="w-full h-[400px] sm:h-[440px] rounded-2xl overflow-hidden bg-[#181514]">
+                <div className="w-full h-[280px] sm:h-[380px] lg:h-[440px] rounded-2xl overflow-hidden bg-[#181514]">
                   <ThreeJewelleryViewer
                     selectedMetal={activeColor.metal}
                     selectedGemstone={activeColor.gemstone}

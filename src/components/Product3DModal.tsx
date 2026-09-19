@@ -80,7 +80,7 @@ export const Product3DModal: React.FC<Props> = ({
         {/* Body */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 p-4 sm:p-6">
           {/* 3D Canvas Studio */}
-          <div className="lg:col-span-7 bg-[#1C1817] rounded-2xl border border-stone-800 shadow-inner relative overflow-hidden min-h-[420px] sm:min-h-[480px]">
+          <div className="lg:col-span-7 bg-[#1C1817] rounded-2xl border border-stone-800 shadow-inner relative overflow-hidden min-h-[280px] sm:min-h-[420px] lg:min-h-[480px]">
             <ThreeJewelleryViewer
               selectedMetal={selectedMetal}
               selectedGemstone={selectedGemstone}

@@ -256,7 +256,13 @@ export const FlagshipShowrooms: React.FC<Props> = ({
                     </div>
                     <div className="flex items-center gap-2.5">
                       <Phone className="w-4 h-4 text-[#4A1017] shrink-0" />
-                      <span>{activeShowroom.phone}</span>
+                      <a
+                        href={`tel:${activeShowroom.phone}`}
+                        className="text-[#4A1017] font-bold hover:underline"
+                        title="Call Store Concierge"
+                      >
+                        {activeShowroom.phone}
+                      </a>
                     </div>
                     <div className="flex items-center gap-2.5">
                       <UserCheck className="w-4 h-4 text-[#4A1017] shrink-0" />
@@ -566,7 +572,14 @@ export const FlagshipShowrooms: React.FC<Props> = ({
                       </span>
                     </div>
                     <p className="text-[11px] text-stone-600 mt-1 line-clamp-2">{s.address}</p>
-                    <p className="text-[11px] text-[#8C6D23] font-semibold mt-1.5">{s.phone}</p>
+                    <a
+                      href={`tel:${s.phone}`}
+                      className="text-[11px] text-[#8C6D23] hover:text-[#4A1017] font-semibold mt-1.5 inline-flex items-center gap-1 hover:underline"
+                      title={`Call ${s.city} Boutique`}
+                    >
+                      <Phone className="w-3 h-3 text-[#B38F2C]" />
+                      <span>{s.phone}</span>
+                    </a>
                     <div className="mt-2.5 pt-2 border-t border-stone-100 flex items-center justify-between">
                       <button
                         type="button"

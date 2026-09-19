@@ -141,6 +141,13 @@ export const AppointmentModal: React.FC<Props> = ({ showroom, isOpen, onClose })
                 </div>
               </div>
 
+              <div className="text-center text-[11px] text-stone-500">
+                Or call our direct boutique concierge:{' '}
+                <a href="tel:+919928541909" className="font-bold text-[#4A1017] hover:underline">
+                  +91-9928541909
+                </a>
+              </div>
+
               <button
                 type="submit"
                 className="w-full py-3 bg-[#4A1017] hover:bg-[#6B1724] text-white rounded-xl font-bold text-xs uppercase tracking-wider shadow-lg hover:shadow-xl transition-all"
@@ -159,8 +166,14 @@ export const AppointmentModal: React.FC<Props> = ({ showroom, isOpen, onClose })
               <p className="text-stone-600 max-w-sm mx-auto">
                 Thank you, <strong>{name}</strong>. Your private appointment at <strong>{showroom.name}</strong> for <strong>{service}</strong> on <strong>{date || 'Upcoming Date'} ({timeSlot})</strong> has been scheduled.
               </p>
-              <div className="text-[11px] text-[#6B1724] bg-[#FAF1E4] p-3 rounded-xl border border-[#D4AF37]/40 max-w-xs mx-auto">
-                Concierge Manager {showroom.conciergeManager} has reserved your private suite.
+              <div className="text-[11px] text-[#6B1724] bg-[#FAF1E4] p-3 rounded-xl border border-[#D4AF37]/40 max-w-xs mx-auto space-y-1">
+                <div>Concierge Manager {showroom.conciergeManager} has reserved your private suite.</div>
+                <div className="pt-1 text-[10px] text-stone-600">
+                  Direct Store Helpline:{' '}
+                  <a href="tel:+919928541909" className="font-bold text-[#4A1017] hover:underline">
+                    +91-9928541909
+                  </a>
+                </div>
               </div>
               <button
                 type="button"

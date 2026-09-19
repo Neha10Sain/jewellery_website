@@ -54,6 +54,8 @@ export const INITIAL_OFFERS: PromotionalOffer[] = [
   },
 ];
 
+export const STORE_CONTACT_PHONE = '+91-9928541909';
+
 export const SHOWROOMS_DATA: Showroom[] = [
   {
     id: 'choglamsar',
@@ -63,7 +65,7 @@ export const SHOWROOMS_DATA: Showroom[] = [
     address: 'Opposite HDFC Bank, Guge Complex, Choglamsar, Leh, Ladakh 194104',
     timings: 'Daily: 10:00 AM – 8:00 PM',
     conciergeManager: 'Dorjay Tsering',
-    phone: '+91 95418 97567',
+    phone: '+91-9928541909',
     rating: 4.9,
     reviewsCount: 1420,
     image: 'https://manubhai.in/wp-content/uploads/2025/07/Gallery-Of-Flagship_3.jpg',
@@ -87,7 +89,7 @@ export const SHOWROOMS_DATA: Showroom[] = [
     address: 'Skitchan Ngodup Complex, Near Old Bus Stand, Leh, Ladakh 194101',
     timings: 'Daily: 10:00 AM – 8:00 PM',
     conciergeManager: 'Stanzin Angmo',
-    phone: '+91 99285 41909',
+    phone: '+91-9928541909',
     rating: 4.9,
     reviewsCount: 2180,
     image: 'https://5.imimg.com/data5/SELLER/Default/2025/10/550030032/HL/MT/GD/241830583/jewellery-shops-interiors-500x500.png',
@@ -111,7 +113,7 @@ export const SHOWROOMS_DATA: Showroom[] = [
     address: 'Main Market Square, Silk Route Galleria, Kargil, Ladakh 194103',
     timings: 'Monday – Saturday: 10:00 AM – 7:30 PM',
     conciergeManager: 'Mohammad Ali',
-    phone: '+91 94191 76231',
+    phone: '+91-9928541909',
     rating: 4.8,
     reviewsCount: 890,
     image: 'https://d91ztqmtx7u1k.cloudfront.net/ClientContent/Images/ExtraLarge/jewellery-shops-interiors-20240501181825733.jpeg',
@@ -135,7 +137,7 @@ export const SHOWROOMS_DATA: Showroom[] = [
     address: 'Gompa Road, Central Padum Market, Zanskar Valley, Ladakh 194302',
     timings: 'Daily: 10:30 AM – 6:30 PM',
     conciergeManager: 'Tundup Namgyal',
-    phone: '+91 96229 88124',
+    phone: '+91-9928541909',
     rating: 4.9,
     reviewsCount: 460,
     image: 'https://5.imimg.com/data5/SELLER/Default/2026/8/631495462/VB/PO/EV/272532207/jewellery-shop-interior-designing-services-500x500.jpeg',
