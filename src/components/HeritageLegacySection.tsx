@@ -3,41 +3,41 @@ import { ShieldCheck, Award, Gem, Sparkles, CheckCircle2, HeartHandshake } from 
 
 export const HeritageLegacySection: React.FC = () => {
   return (
-    <section className="py-16 bg-gradient-to-b from-[#FAF7F2] to-[#F5ECE0] border-b border-[#E8DFC8]">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+    <section className="py-12 sm:py-16 bg-gradient-to-b from-[#FAF7F2] to-[#F5ECE0] border-b border-[#E8DFC8] w-full max-w-full overflow-hidden">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 items-center">
           {/* Visual Showcase */}
           <div className="lg:col-span-6 relative">
             <div className="relative rounded-3xl overflow-hidden border-2 border-[#D4AF37]/50 shadow-2xl">
               <img
                 src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=1000&q=80"
                 alt="Master Goldsmith at New Friends Jewellers"
-                className="w-full h-[450px] object-cover"
+                className="w-full h-[300px] sm:h-[450px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
               {/* Floating Quote Badge */}
-              <div className="absolute bottom-6 left-6 right-6 text-white">
+              <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6 text-white">
                 <span className="text-[10px] font-bold tracking-widest text-[#F3DE8A] uppercase font-cinzel">
                   THE NEW FRIENDS JEWELLERS PROMISE
                 </span>
-                <p className="font-cormorant text-2xl font-bold mt-1 leading-snug">
+                <p className="font-cormorant text-xl sm:text-2xl font-bold mt-1 leading-snug">
                   &ldquo;Every grain of gold tested by Karatmeter, every diamond certified by world gemological laboratories.&rdquo;
                 </p>
-                <div className="text-xs text-stone-300 mt-2">
+                <div className="text-[11px] sm:text-xs text-stone-300 mt-1.5 sm:mt-2">
                   Serving royal weddings & patron families across Ladakh for decades.
                 </div>
               </div>
             </div>
 
             {/* Floating Hallmark Cert Badge */}
-            <div className="absolute -top-4 -right-4 bg-white rounded-2xl p-3.5 border border-[#D4AF37] shadow-xl flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-[#FAF1E4] flex items-center justify-center text-[#B38F2C]">
-                <ShieldCheck className="w-6 h-6" />
+            <div className="absolute top-3 right-3 sm:-top-4 sm:-right-4 bg-white rounded-2xl p-2.5 sm:p-3.5 border border-[#D4AF37] shadow-xl flex items-center gap-2.5 sm:gap-3">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#FAF1E4] flex items-center justify-center text-[#B38F2C]">
+                <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
               <div>
-                <div className="text-xs font-bold text-[#4A1017]">BIS 916 GUARANTEE</div>
-                <div className="text-[10px] text-stone-500">Zero tolerance for impurity</div>
+                <div className="text-[11px] sm:text-xs font-bold text-[#4A1017]">BIS 916 GUARANTEE</div>
+                <div className="text-[9px] sm:text-[10px] text-stone-500">Zero tolerance for impurity</div>
               </div>
             </div>
           </div>

@@ -198,7 +198,7 @@ export const ConciergeChatbot: React.FC<ConciergeChatbotProps> = ({
           href={`tel:${STORE_BACKEND_PHONE_HOTLINE}`}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="relative flex items-center gap-2 px-4 py-2.5 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.3)] transition-all duration-300 border border-[#D4AF37] bg-gradient-to-r from-[#113824] via-[#1B4D3E] to-[#0D281A] text-white hover:border-[#F3DE8A] hover:shadow-[0_0_20px_rgba(16,185,129,0.35)]"
+          className="relative flex items-center justify-center sm:gap-2 w-11 h-11 sm:w-auto sm:h-auto sm:px-4 sm:py-2.5 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.3)] transition-all duration-300 border border-[#D4AF37] bg-gradient-to-r from-[#113824] via-[#1B4D3E] to-[#0D281A] text-white hover:border-[#F3DE8A] hover:shadow-[0_0_20px_rgba(16,185,129,0.35)] shrink-0"
           aria-label="Call New Friends Jewellers on Phone Dialer"
           title="Open phone dialler to connect with store concierge"
         >
@@ -210,7 +210,7 @@ export const ConciergeChatbot: React.FC<ConciergeChatbotProps> = ({
             </span>
           </div>
 
-          <span className="text-xs sm:text-sm font-bold tracking-wide text-white">Call</span>
+          <span className="hidden sm:inline text-xs sm:text-sm font-bold tracking-wide text-white">Call</span>
         </motion.a>
 
         {/* Unread teaser tooltip if chatbot is closed */}
@@ -288,7 +288,7 @@ export const ConciergeChatbot: React.FC<ConciergeChatbotProps> = ({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.95 }}
             transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[420px] h-[580px] max-h-[82vh] bg-[#FAF7F2] rounded-3xl shadow-[0_20px_60px_rgba(31,22,21,0.35)] border border-[#C4A77D]/40 flex flex-col overflow-hidden"
+            className="fixed bottom-24 left-3 right-3 sm:left-auto sm:right-6 z-50 sm:w-[420px] h-[540px] max-h-[82vh] bg-[#FAF7F2] rounded-3xl shadow-[0_20px_60px_rgba(31,22,21,0.35)] border border-[#C4A77D]/40 flex flex-col overflow-hidden"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-[#36090E] via-[#4A1017] to-[#2B060B] text-white px-5 py-4 flex items-center justify-between border-b border-[#D4AF37]/30 shrink-0">

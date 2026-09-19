@@ -156,18 +156,18 @@ export const HeroSection: React.FC<Props> = ({
   };
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-[#FAF7F2] via-[#F4EBE0] to-[#FAF7F2] border-b border-[#E8DFC8]">
+    <section className="relative overflow-hidden bg-gradient-to-b from-[#FAF7F2] via-[#F4EBE0] to-[#FAF7F2] border-b border-[#E8DFC8] w-full max-w-full">
       {/* 3D Floating Gold Dust Ambient Background */}
       <ThreeHeroBackground />
 
-      <div className="relative max-w-7xl mx-auto px-4 py-8 lg:py-12 z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <div className="relative max-w-7xl mx-auto px-3 sm:px-4 py-6 sm:py-8 lg:py-12 z-10 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
           {/* Left Column: Clean & Powerful Narrative */}
-          <div className="lg:col-span-5 space-y-5">
+          <div className="lg:col-span-5 space-y-4 sm:space-y-5">
             {/* Royal Tag Badge */}
-            <div className="inline-flex items-center gap-2 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-[#D4AF37]/50 shadow-xs">
-              <Sparkles className="w-3.5 h-3.5 text-[#B38F2C] animate-pulse" />
-              <span className="text-[11px] font-bold tracking-wider text-[#4A1017] uppercase">
+            <div className="inline-flex items-center gap-2 bg-white/95 backdrop-blur-md px-3 sm:px-3.5 py-1.5 rounded-full border border-[#D4AF37]/50 shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-[#B38F2C] animate-pulse shrink-0" />
+              <span className="text-[10px] sm:text-[11px] font-bold tracking-wider text-[#4A1017] uppercase">
                 New Friends Jewellers • Leh Ladakh
               </span>
             </div>
@@ -183,7 +183,7 @@ export const HeroSection: React.FC<Props> = ({
             </div>
 
             {/* Color Palette Switcher for the 2D Necklace */}
-            <div className="bg-white/80 backdrop-blur-sm p-3.5 rounded-2xl border border-stone-200 shadow-xs space-y-2.5">
+            <div className="bg-white/80 backdrop-blur-sm p-3 sm:p-3.5 rounded-2xl border border-stone-200 shadow-xs space-y-2.5">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold text-[#4A1017] uppercase tracking-wider">
                   Select Necklace Colorway:
@@ -193,7 +193,7 @@ export const HeroSection: React.FC<Props> = ({
                 </span>
               </div>
 
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-2 sm:gap-2.5 flex-wrap">
                 {NECKLACE_COLORWAYS.map((c, idx) => {
                   const isSelected = activeColorIndex === idx;
                   return (
@@ -209,11 +209,11 @@ export const HeroSection: React.FC<Props> = ({
                       }`}
                     >
                       <span
-                        className="w-8 h-8 rounded-full border border-black/20 shadow-xs block"
+                        className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-black/20 shadow-xs block"
                         style={{ backgroundColor: c.hex }}
                       />
                       {isSelected && (
-                        <Check className="w-4 h-4 text-white absolute inset-0 m-auto drop-shadow-md" />
+                        <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white absolute inset-0 m-auto drop-shadow-md" />
                       )}
                     </button>
                   );
@@ -227,7 +227,7 @@ export const HeroSection: React.FC<Props> = ({
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 pt-1">
               <button
                 type="button"
                 onClick={onExploreClick}
@@ -248,39 +248,39 @@ export const HeroSection: React.FC<Props> = ({
             </div>
 
             {/* Trust Badges */}
-            <div className="grid grid-cols-3 gap-2 pt-2 border-t border-stone-200/80">
-              <div className="p-2.5 bg-white/70 rounded-xl text-center border border-stone-200">
-                <div className="font-bold text-[#4A1017] text-xs">100% BIS 916</div>
-                <div className="text-[10px] text-stone-500">Hallmarked Pure</div>
+            <div className="grid grid-cols-3 gap-1.5 sm:gap-2 pt-2 border-t border-stone-200/80">
+              <div className="p-2 sm:p-2.5 bg-white/70 rounded-xl text-center border border-stone-200">
+                <div className="font-bold text-[#4A1017] text-[11px] sm:text-xs">100% BIS 916</div>
+                <div className="text-[9px] sm:text-[10px] text-stone-500">Hallmarked Pure</div>
               </div>
-              <div className="p-2.5 bg-white/70 rounded-xl text-center border border-stone-200">
-                <div className="font-bold text-[#4A1017] text-xs">Rental Service</div>
-                <div className="text-[10px] text-stone-500">From ₹1,700 / day</div>
+              <div className="p-2 sm:p-2.5 bg-white/70 rounded-xl text-center border border-stone-200">
+                <div className="font-bold text-[#4A1017] text-[11px] sm:text-xs">Rental Service</div>
+                <div className="text-[9px] sm:text-[10px] text-stone-500">From ₹1,700 / day</div>
               </div>
-              <div className="p-2.5 bg-white/70 rounded-xl text-center border border-stone-200">
-                <div className="font-bold text-[#4A1017] text-xs">0% EMI Plans</div>
-                <div className="text-[10px] text-stone-500">No-Cost Tenure</div>
+              <div className="p-2 sm:p-2.5 bg-white/70 rounded-xl text-center border border-stone-200">
+                <div className="font-bold text-[#4A1017] text-[11px] sm:text-xs">0% EMI Plans</div>
+                <div className="text-[9px] sm:text-[10px] text-stone-500">No-Cost Tenure</div>
               </div>
             </div>
           </div>
 
           {/* Right Column: 2D Stylish Necklace Showcase in Multiple Colors */}
-          <div className="lg:col-span-7 relative">
-            <div className="bg-white/90 backdrop-blur-md rounded-3xl border-2 border-[#D4AF37]/50 shadow-2xl p-3 sm:p-4 relative overflow-hidden">
+          <div className="lg:col-span-7 relative w-full min-w-0">
+            <div className="bg-white/90 backdrop-blur-md rounded-2xl sm:rounded-3xl border-2 border-[#D4AF37]/50 shadow-2xl p-2.5 sm:p-4 relative overflow-hidden w-full">
               {/* Header inside Showcase with 2D / 3D Toggle */}
-              <div className="flex items-center justify-between pb-3 px-1">
-                <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#10B981] animate-ping" />
-                  <span className="text-xs font-bold text-[#4A1017] uppercase tracking-wider">
+              <div className="flex flex-wrap items-center justify-between gap-2 pb-3 px-1">
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#10B981] animate-ping shrink-0" />
+                  <span className="text-xs font-bold text-[#4A1017] uppercase tracking-wider truncate">
                     {viewMode === '2d' ? '2D Haute Couture Showcase' : '3D Interactive Studio'}
                   </span>
                 </div>
 
-                <div className="flex items-center gap-1.5 bg-stone-100 p-1 rounded-xl">
+                <div className="flex items-center gap-1 bg-stone-100 p-1 rounded-xl shrink-0">
                   <button
                     type="button"
                     onClick={() => setViewMode('2d')}
-                    className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                    className={`px-2.5 sm:px-3 py-1 rounded-lg text-xs font-bold transition-all ${
                       viewMode === '2d'
                         ? 'bg-[#4A1017] text-white shadow-xs'
                         : 'text-stone-600 hover:text-stone-900'
@@ -291,7 +291,7 @@ export const HeroSection: React.FC<Props> = ({
                   <button
                     type="button"
                     onClick={() => setViewMode('3d')}
-                    className={`px-3 py-1 rounded-lg text-xs font-bold flex items-center gap-1 transition-all ${
+                    className={`px-2.5 sm:px-3 py-1 rounded-lg text-xs font-bold flex items-center gap-1 transition-all ${
                       viewMode === '3d'
                         ? 'bg-[#4A1017] text-white shadow-xs'
                         : 'text-stone-600 hover:text-stone-900'
@@ -305,7 +305,7 @@ export const HeroSection: React.FC<Props> = ({
 
               {/* Main Visual Display */}
               {viewMode === '2d' ? (
-                <div className="relative w-full h-[280px] sm:h-[380px] lg:h-[440px] rounded-2xl overflow-hidden bg-stone-900 group shadow-inner">
+                <div className="relative w-full h-[260px] sm:h-[380px] lg:h-[440px] rounded-xl sm:rounded-2xl overflow-hidden bg-stone-900 group shadow-inner">
                   {/* High Quality Necklace Image */}
                   <img
                     src={activeColor.image}
@@ -320,32 +320,32 @@ export const HeroSection: React.FC<Props> = ({
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 pointer-events-none" />
 
                   {/* Top floating badges */}
-                  <div className="absolute top-3 left-3 flex items-center gap-2">
-                    <span className="bg-[#4A1017]/90 backdrop-blur-md text-[#F5E5B8] text-[10px] font-bold px-2.5 py-1 rounded-full border border-[#D4AF37]/40 shadow-xs uppercase">
+                  <div className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 flex items-center gap-1.5 sm:gap-2">
+                    <span className="bg-[#4A1017]/90 backdrop-blur-md text-[#F5E5B8] text-[9px] sm:text-[10px] font-bold px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full border border-[#D4AF37]/40 shadow-xs uppercase">
                       {activeColor.colorName}
                     </span>
-                    <span className="bg-white/90 backdrop-blur-md text-[#6B1724] text-[9px] font-bold px-2 py-0.5 rounded-full border border-stone-200 shadow-xs flex items-center gap-1">
+                    <span className="bg-white/90 backdrop-blur-md text-[#6B1724] text-[8px] sm:text-[9px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full border border-stone-200 shadow-xs flex items-center gap-1">
                       <ShieldCheck className="w-3 h-3 text-[#B38F2C]" />
                       <span>{activeColor.purity}</span>
                     </span>
                   </div>
 
-                  <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-md text-white text-[10px] px-2.5 py-1 rounded-full border border-white/20">
-                    Gross Weight: {activeColor.weightGrams}g
+                  <div className="absolute top-2.5 sm:top-3 right-2.5 sm:right-3 bg-black/60 backdrop-blur-md text-white text-[9px] sm:text-[10px] px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full border border-white/20">
+                    Weight: {activeColor.weightGrams}g
                   </div>
 
                   {/* Bottom description banner */}
-                  <div className="absolute bottom-3 left-3 right-3 text-white">
-                    <h3 className="font-playfair text-lg sm:text-xl font-bold">
+                  <div className="absolute bottom-2.5 sm:bottom-3 left-2.5 sm:left-3 right-2.5 sm:right-3 text-white">
+                    <h3 className="font-playfair text-base sm:text-xl font-bold line-clamp-1">
                       {activeColor.name}
                     </h3>
-                    <p className="text-xs text-stone-300 line-clamp-1 mt-0.5">
+                    <p className="text-[11px] sm:text-xs text-stone-300 line-clamp-1 mt-0.5">
                       {activeColor.description}
                     </p>
                   </div>
                 </div>
               ) : (
-                <div className="w-full h-[280px] sm:h-[380px] lg:h-[440px] rounded-2xl overflow-hidden bg-[#181514]">
+                <div className="w-full h-[260px] sm:h-[380px] lg:h-[440px] rounded-xl sm:rounded-2xl overflow-hidden bg-[#181514]">
                   <ThreeJewelleryViewer
                     selectedMetal={activeColor.metal}
                     selectedGemstone={activeColor.gemstone}
@@ -357,12 +357,12 @@ export const HeroSection: React.FC<Props> = ({
               )}
 
               {/* Live Price & Multi-Action Bar */}
-              <div className="mt-3.5 px-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-stone-200/80">
+              <div className="mt-3 px-1 sm:px-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-stone-200/80">
                 <div>
-                  <div className="text-[11px] text-stone-500">
-                    Purchase Price <span className="text-[10px] font-normal text-stone-400">(Incl. GST)</span>
+                  <div className="text-[10px] sm:text-[11px] text-stone-500">
+                    Purchase Price <span className="text-[9px] sm:text-[10px] font-normal text-stone-400">(Incl. GST)</span>
                   </div>
-                  <div className="font-playfair text-2xl font-bold text-[#4A1017]">
+                  <div className="font-playfair text-xl sm:text-2xl font-bold text-[#4A1017]">
                     ₹{activeColor.price.toLocaleString('en-IN')}
                   </div>
                 </div>
@@ -372,7 +372,7 @@ export const HeroSection: React.FC<Props> = ({
                   <button
                     type="button"
                     onClick={() => onOpenRental?.(currentJewelleryItem)}
-                    className="bg-[#FAF1E4] hover:bg-[#F3E5CC] text-[#8C6D23] border border-[#D4AF37]/50 px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all"
+                    className="flex-1 sm:flex-initial bg-[#FAF1E4] hover:bg-[#F3E5CC] text-[#8C6D23] border border-[#D4AF37]/50 px-2.5 sm:px-3 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all whitespace-nowrap"
                   >
                     <Clock className="w-3.5 h-3.5 text-[#B38F2C]" />
                     <span>Rent ₹{activeColor.rentalPricePerDay.toLocaleString('en-IN')}/day</span>
@@ -382,7 +382,7 @@ export const HeroSection: React.FC<Props> = ({
                   <button
                     type="button"
                     onClick={() => onOpenCalculator?.(activeColor.price)}
-                    className="bg-white hover:bg-stone-50 text-stone-700 border border-stone-300 px-3 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all"
+                    className="flex-1 sm:flex-initial bg-white hover:bg-stone-50 text-stone-700 border border-stone-300 px-2.5 sm:px-3 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all whitespace-nowrap"
                   >
                     <Calculator className="w-3.5 h-3.5 text-[#4A1017]" />
                     <span>0% EMI</span>
@@ -392,7 +392,7 @@ export const HeroSection: React.FC<Props> = ({
                   <button
                     type="button"
                     onClick={() => onAddToCartDirect(activeColor.metal, activeColor.gemstone, 2.0)}
-                    className="bg-gradient-to-r from-[#D4AF37] to-[#B38F2C] hover:brightness-105 text-[#2B090F] px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all active:scale-95"
+                    className="w-full sm:w-auto bg-gradient-to-r from-[#D4AF37] to-[#B38F2C] hover:brightness-105 text-[#2B090F] px-4 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 shadow-sm transition-all active:scale-95"
                   >
                     <ShoppingBag className="w-3.5 h-3.5" />
                     <span>Buy Now</span>

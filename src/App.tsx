@@ -273,7 +273,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] text-[#1F1615] font-sans antialiased selection:bg-[#D4AF37]/30 selection:text-[#4A1017]">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden relative bg-[#FAF7F2] text-[#1F1615] font-sans antialiased selection:bg-[#D4AF37]/30 selection:text-[#4A1017]">
       {/* Customer Broadcast Banner (Triggered when Admin sends offer notification) */}
       {customerAlert && (
         <div className="bg-[#4A1017] text-[#F5E5B8] px-4 py-2.5 border-b border-[#D4AF37]/40 flex items-center justify-between text-xs animate-in slide-in-from-top duration-300">

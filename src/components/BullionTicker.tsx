@@ -48,14 +48,15 @@ export const BullionTicker: React.FC<Props> = ({ onOpenDigitalGold }) => {
   return (
     <>
       {/* Top Banner Ticker */}
-      <div className="w-full bg-[#1F080C] text-[#F5E5B8] text-xs py-2 px-3 border-b border-[#5E121E] shadow-sm relative z-30 overflow-hidden">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+      <div className="w-full bg-[#1F080C] text-[#F5E5B8] text-xs py-2 px-2 sm:px-3 border-b border-[#5E121E] shadow-sm relative z-30 overflow-hidden">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
           {/* Left badge */}
-          <div className="flex items-center gap-2 shrink-0">
-            <div className="flex items-center gap-1.5 bg-[#4A1017] px-2.5 py-1 rounded-full border border-[#D4AF37]/30">
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            <div className="flex items-center gap-1.5 bg-[#4A1017] px-2 sm:px-2.5 py-1 rounded-full border border-[#D4AF37]/30">
               <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
-              <span className="font-bold tracking-wider text-[11px] text-[#F3DE8A] uppercase">
-                LIVE BULLION RATES
+              <span className="font-bold tracking-wider text-[10px] sm:text-[11px] text-[#F3DE8A] uppercase">
+                <span className="hidden sm:inline">LIVE BULLION RATES</span>
+                <span className="sm:hidden">RATES</span>
               </span>
             </div>
             <button

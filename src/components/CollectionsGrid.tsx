@@ -54,8 +54,8 @@ export const CollectionsGrid: React.FC<Props> = ({
   });
 
   return (
-    <section id="collections-section" className="py-14 bg-[#FAF7F2] border-b border-[#E8DFC8]">
-      <div className="max-w-7xl mx-auto px-4">
+    <section id="collections-section" className="py-10 sm:py-14 bg-[#FAF7F2] border-b border-[#E8DFC8] w-full max-w-full overflow-hidden">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 w-full">
         {/* Section Header: Minimal & Understandable */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
           <div>
@@ -63,7 +63,7 @@ export const CollectionsGrid: React.FC<Props> = ({
               <Sparkles className="w-3.5 h-3.5" />
               <span>HANDCRAFTED BRIDAL COLLECTIONS</span>
             </div>
-            <h2 className="font-playfair text-3xl sm:text-4xl font-bold text-[#2B090F] tracking-tight">
+            <h2 className="font-playfair text-2xl sm:text-4xl font-bold text-[#2B090F] tracking-tight">
               Featured Jewellery & Rentals
             </h2>
             <p className="text-xs sm:text-sm text-stone-600 mt-1">
@@ -72,7 +72,7 @@ export const CollectionsGrid: React.FC<Props> = ({
           </div>
 
           {/* Metal Purity Filter */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-1">
+          <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-1 max-w-full no-scrollbar">
             <span className="text-xs font-semibold text-stone-500 whitespace-nowrap">
               Filter:
             </span>
@@ -86,7 +86,7 @@ export const CollectionsGrid: React.FC<Props> = ({
                 key={p.id}
                 type="button"
                 onClick={() => setPurityFilter(p.id)}
-                className={`px-3 py-1 text-xs rounded-full font-medium transition-all whitespace-nowrap ${
+                className={`px-3 py-1 text-xs rounded-full font-medium transition-all whitespace-nowrap shrink-0 ${
                   purityFilter === p.id
                     ? 'bg-[#4A1017] text-white font-semibold shadow-xs'
                     : 'bg-white text-stone-600 border border-stone-200 hover:border-stone-400'
@@ -99,13 +99,13 @@ export const CollectionsGrid: React.FC<Props> = ({
         </div>
 
         {/* Category Tabs */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-6 no-scrollbar border-b border-stone-200">
+        <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-6 no-scrollbar border-b border-stone-200 max-w-full">
           {categories.map((cat) => (
             <button
               key={cat.id}
               type="button"
               onClick={() => onCategoryChange(cat.id)}
-              className={`px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+              className={`px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all shrink-0 ${
                 activeCategory === cat.id
                   ? 'bg-[#4A1017] text-white shadow-xs font-bold'
                   : 'bg-white text-stone-700 hover:bg-stone-100 border border-stone-200'
@@ -117,7 +117,7 @@ export const CollectionsGrid: React.FC<Props> = ({
         </div>
 
         {/* Products Grid: High visual emphasis on jewellery */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {filteredProducts.map((item) => {
             const isWishlisted = wishlistIds.includes(item.id);
             return (

@@ -66,27 +66,27 @@ export const Navbar: React.FC<Props> = ({
       <div className="h-[2.5px] w-full animate-shimmer-gold" />
 
       {/* Brand & Main Controls */}
-      <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 py-2.5 sm:py-3 flex items-center justify-between gap-2 sm:gap-4">
         {/* Brand Logo */}
         <div
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="flex items-center gap-3 cursor-pointer group shrink-0"
+          className="flex items-center gap-2 sm:gap-3 cursor-pointer group min-w-0"
         >
-          <div className="relative w-11 h-11 rounded-full bg-gradient-to-br from-[#4A1017] to-[#1F080C] border-2 border-[#D4AF37] flex items-center justify-center p-1 shadow-sm group-hover:scale-105 transition-transform">
-            <span className="font-playfair text-xs font-bold tracking-widest text-[#F5E5B8]">
+          <div className="relative w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-gradient-to-br from-[#4A1017] to-[#1F080C] border-2 border-[#D4AF37] flex items-center justify-center p-1 shadow-sm group-hover:scale-105 transition-transform shrink-0">
+            <span className="font-playfair text-[10px] sm:text-xs font-bold tracking-widest text-[#F5E5B8]">
               NFJ
             </span>
             <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-[#10B981] ring-2 ring-white animate-pulse" />
           </div>
 
-          <div className="flex flex-col">
-            <span className="font-playfair font-bold tracking-[0.12em] text-base md:text-lg text-[#3E0A12] uppercase leading-none">
+          <div className="flex flex-col min-w-0">
+            <span className="font-playfair font-bold tracking-wider sm:tracking-[0.12em] text-xs sm:text-base md:text-lg text-[#3E0A12] uppercase leading-tight truncate">
               NEW FRIENDS JEWELLERS
             </span>
-            <span className="text-[10px] font-semibold tracking-[0.2em] text-[#8C6D23] uppercase mt-1 flex items-center gap-1">
+            <span className="text-[9px] sm:text-[10px] font-semibold tracking-wider text-[#8C6D23] uppercase mt-0.5 flex items-center gap-1">
               <span>LEH LADAKH</span>
-              <span>•</span>
-              <span className="text-stone-500 font-normal">ESTD 1998</span>
+              <span className="hidden sm:inline">•</span>
+              <span className="hidden sm:inline text-stone-500 font-normal">ESTD 1998</span>
             </span>
           </div>
         </div>
@@ -174,7 +174,7 @@ export const Navbar: React.FC<Props> = ({
         </div>
 
         {/* Action Items & Modals */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
           {/* EMI Calculator Quick Trigger */}
           <button
             type="button"
@@ -211,12 +211,12 @@ export const Navbar: React.FC<Props> = ({
           <button
             type="button"
             onClick={onOpenWishlist}
-            className="w-9 h-9 rounded-full bg-white hover:bg-stone-50 flex items-center justify-center border border-stone-200 text-stone-700 hover:text-[#4A1017] transition-colors relative shadow-2xs"
+            className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white hover:bg-stone-50 flex items-center justify-center border border-stone-200 text-stone-700 hover:text-[#4A1017] transition-colors relative shadow-2xs"
             title="Wishlist"
           >
-            <Heart className="w-4 h-4 text-[#8C1D2F]" />
+            <Heart className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#8C1D2F]" />
             {wishlistCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-[#6B1724] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+              <span className="absolute -top-1 -right-1 bg-[#6B1724] text-white text-[9px] sm:text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
                 {wishlistCount}
               </span>
             )}
@@ -226,12 +226,12 @@ export const Navbar: React.FC<Props> = ({
           <button
             type="button"
             onClick={onOpenCart}
-            className="w-9 h-9 rounded-full bg-white hover:bg-stone-50 flex items-center justify-center border border-stone-200 text-stone-700 hover:text-[#4A1017] transition-colors relative shadow-2xs active:scale-95"
+            className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white hover:bg-stone-50 flex items-center justify-center border border-stone-200 text-stone-700 hover:text-[#4A1017] transition-colors relative shadow-2xs active:scale-95"
             title="Shopping Bag"
           >
-            <ShoppingBag className="w-4 h-4 text-[#3E0A12]" />
+            <ShoppingBag className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#3E0A12]" />
             {cartCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-[#6B1724] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center animate-bounce">
+              <span className="absolute -top-1 -right-1 bg-[#6B1724] text-white text-[9px] sm:text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center animate-bounce">
                 {cartCount}
               </span>
             )}
@@ -241,18 +241,19 @@ export const Navbar: React.FC<Props> = ({
           <button
             type="button"
             onClick={onOpenAdmin}
-            className="w-9 h-9 rounded-full bg-white hover:bg-stone-50 flex items-center justify-center border border-stone-200 hover:border-[#D4AF37] text-stone-700 hover:text-[#4A1017] transition-colors relative shadow-2xs active:scale-95 group"
+            className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white hover:bg-stone-50 flex items-center justify-center border border-stone-200 hover:border-[#D4AF37] text-stone-700 hover:text-[#4A1017] transition-colors relative shadow-2xs active:scale-95 group"
             title="User Profile & Admin Portal"
             aria-label="User Profile & Admin Portal"
           >
-            <User className="w-4 h-4 text-[#4A1017] group-hover:scale-110 transition-transform" />
+            <User className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#4A1017] group-hover:scale-110 transition-transform" />
           </button>
 
           {/* Mobile Menu Toggle */}
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden w-9 h-9 rounded-full bg-white flex items-center justify-center border border-stone-300 text-stone-700"
+            className="md:hidden w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white flex items-center justify-center border border-stone-300 text-stone-700"
+            aria-label="Toggle Navigation Menu"
           >
             {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
           </button>

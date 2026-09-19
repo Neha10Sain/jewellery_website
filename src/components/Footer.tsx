@@ -30,7 +30,7 @@ export const Footer: React.FC<Props> = ({
   onOpenRental,
 }) => {
   return (
-    <footer className="relative bg-[#1A0609] text-[#FAF7F2] border-t-2 border-[#D4AF37]/50 pt-12 pb-8 overflow-hidden">
+    <footer className="relative bg-[#1A0609] text-[#FAF7F2] border-t-2 border-[#D4AF37]/50 pt-12 pb-8 overflow-hidden w-full max-w-full">
       {/* Animated Top Golden Shimmer Line */}
       <div className="absolute top-0 left-0 right-0 h-[2px] animate-shimmer-gold" />
 
@@ -38,7 +38,7 @@ export const Footer: React.FC<Props> = ({
       <div className="absolute top-10 left-1/4 w-96 h-96 bg-[#D4AF37]/5 rounded-full blur-3xl pointer-events-none animate-pulse-glow" />
       <div className="absolute bottom-10 right-1/4 w-96 h-96 bg-[#4A1017]/30 rounded-full blur-3xl pointer-events-none animate-pulse-glow" />
 
-      <div className="relative max-w-7xl mx-auto px-4 z-10">
+      <div className="relative max-w-7xl mx-auto px-3 sm:px-4 z-10 w-full">
         {/* Main Columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 pb-10 border-b border-stone-800">
           {/* Brand & Crest Column */}

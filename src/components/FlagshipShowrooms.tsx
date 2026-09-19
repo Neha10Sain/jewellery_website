@@ -70,28 +70,28 @@ export const FlagshipShowrooms: React.FC<Props> = ({
     SHOWROOMS_DATA.find((s) => s.id === activeShowroomId) || SHOWROOMS_DATA[0];
 
   return (
-    <section id="showrooms-section" className="py-16 bg-[#FAF7F2] relative border-b border-[#E8DFC8]">
-      <div className="max-w-7xl mx-auto px-4">
+    <section id="showrooms-section" className="py-12 sm:py-16 bg-[#FAF7F2] relative border-b border-[#E8DFC8] w-full max-w-full overflow-hidden">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 w-full">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 bg-white px-4 py-1.5 rounded-full border border-[#D4AF37]/50 shadow-xs mb-4">
+          <div className="inline-flex items-center gap-2 bg-white px-3 sm:px-4 py-1.5 rounded-full border border-[#D4AF37]/50 shadow-xs mb-4">
             <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
-            <span className="text-xs font-bold tracking-widest text-[#6B1724] uppercase">
+            <span className="text-[10px] sm:text-xs font-bold tracking-widest text-[#6B1724] uppercase">
               EXPERIENCE ROYAL HIMALAYAN HOSPITALITY
             </span>
           </div>
 
-          <h2 className="font-playfair text-4xl sm:text-5xl font-bold text-[#2B090F] tracking-tight">
+          <h2 className="font-playfair text-3xl sm:text-5xl font-bold text-[#2B090F] tracking-tight">
             Our 4 Flagship{' '}
             <span className="text-[#B38F2C] italic">Showrooms</span>
           </h2>
 
-          <p className="mt-4 text-sm sm:text-base text-stone-600 leading-relaxed">
+          <p className="mt-3 sm:mt-4 text-xs sm:text-base text-stone-600 leading-relaxed px-2">
             Step into our palatial jewellery boutiques in Choglamsar, Leh, Kargil, and Zanskar crafted with Himalayan warmth, private bridal suites, and transparent Karatmeter testing.
           </p>
 
           {/* 4 Stats Cards */}
-          <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl mx-auto">
+          <div className="mt-6 sm:mt-8 grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 max-w-2xl mx-auto">
             <div className="bg-white rounded-2xl p-3.5 border border-stone-200/80 shadow-xs text-center">
               <div className="font-playfair text-2xl font-bold text-[#4A1017]">4</div>
               <div className="text-[10px] tracking-wider text-stone-500 font-bold uppercase mt-0.5">
@@ -204,7 +204,7 @@ export const FlagshipShowrooms: React.FC<Props> = ({
           <div className="bg-white rounded-3xl border border-[#D4AF37]/30 shadow-xl overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-12">
               {/* Left Showroom Photo */}
-              <div className="lg:col-span-6 relative min-h-[360px] lg:min-h-[500px] overflow-hidden group">
+              <div className="lg:col-span-6 relative min-h-[260px] sm:min-h-[360px] lg:min-h-[500px] overflow-hidden group">
                 <img
                   src={activeShowroom.image}
                   alt={activeShowroom.name}
@@ -214,27 +214,27 @@ export const FlagshipShowrooms: React.FC<Props> = ({
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/30" />
 
                 {/* Floating Status Badges */}
-                <div className="absolute top-4 left-4 flex items-center gap-2">
-                  <div className="flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full text-white text-xs font-semibold border border-white/20">
+                <div className="absolute top-3 sm:top-4 left-3 sm:left-4 flex items-center gap-2">
+                  <div className="flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-white text-[11px] sm:text-xs font-semibold border border-white/20">
                     <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
                     <span>Open Today</span>
                   </div>
                 </div>
 
-                <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full text-white text-xs font-bold border border-white/20">
+                <div className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-black/60 backdrop-blur-md px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-white text-[11px] sm:text-xs font-bold border border-white/20">
                   ★ {activeShowroom.rating} ({activeShowroom.reviewsCount.toLocaleString()}+ reviews)
                 </div>
 
-                <div className="absolute bottom-4 left-4 right-4 text-white">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#F3DE8A]">
+                <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 text-white">
+                  <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#F3DE8A]">
                     {activeShowroom.city} Flagship Boutique
                   </span>
-                  <div className="text-xl font-bold font-playfair">{activeShowroom.name}</div>
+                  <div className="text-lg sm:text-xl font-bold font-playfair">{activeShowroom.name}</div>
                 </div>
               </div>
 
               {/* Right Showroom Details */}
-              <div className="lg:col-span-6 p-6 sm:p-8 flex flex-col justify-between space-y-6">
+              <div className="lg:col-span-6 p-4 sm:p-6 lg:p-8 flex flex-col justify-between space-y-5 sm:space-y-6">
                 <div>
                   <div className="flex items-center gap-2 text-xs font-bold text-[#8C6D23] uppercase tracking-wider">
                     <Sparkles className="w-3.5 h-3.5" />
