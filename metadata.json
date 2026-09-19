@@ -1,0 +1,6 @@
+{
+  "name": "New Friends Jewellers - 3D Luxury Jewellery Showcase",
+  "description": "Interactive 3D luxury jewellery showcase and flagship showroom experience for New Friends Jewellers, Leh Ladakh. Features real-time 3D diamond and gold visualizers, live bullion ticker, flagship stores, and bespoke bridal collections.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
