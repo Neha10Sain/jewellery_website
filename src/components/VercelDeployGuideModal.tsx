@@ -132,6 +132,12 @@ export const VercelDeployGuideModal: React.FC<Props> = ({ isOpen, onClose }) => 
               <p className="mt-1.5 text-stone-600 leading-relaxed">
                 Export or push your project to a GitHub repository. Visit <strong>vercel.com/new</strong>, sign in with GitHub, and select your repository. Vercel automatically detects Vite and deploys your 3D jewellery website to a live <code>.vercel.app</code> URL in under 45 seconds!
               </p>
+              <div className="mt-2.5 p-2.5 bg-emerald-50 rounded-lg border border-emerald-200 text-[11px] text-emerald-900">
+                <strong>Fix for npm ERESOLVE error on Vercel:</strong> We have added <code>.npmrc</code> with <code>legacy-peer-deps=true</code> and aligned <code>esbuild</code> in <code>package.json</code>. If your build is already failing on Vercel, simply push the updated repository, or in your Vercel Project <em>Settings → General → Build & Development Settings</em>, set <strong>Install Command</strong> to:
+                <code className="block mt-1 p-1 bg-white rounded border border-emerald-300 font-mono text-stone-800">
+                  npm install --legacy-peer-deps
+                </code>
+              </div>
             </div>
 
             {/* Method 2 */}
