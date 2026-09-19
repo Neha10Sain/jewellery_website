@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   MapPin,
   Clock,
@@ -10,19 +10,51 @@ import {
   Search,
   Map as MapIcon,
   Store,
+  ExternalLink,
+  Navigation,
 } from 'lucide-react';
 import { SHOWROOMS_DATA } from '../data/jewelleryData';
 import { Showroom } from '../types';
 
 interface Props {
   onBookAppointment: (showroom: Showroom) => void;
+  activeView?: 'showroom' | 'map';
+  onViewChange?: (view: 'showroom' | 'map') => void;
+  activeShowroomId?: string;
+  onSelectShowroomId?: (id: string) => void;
 }
 
-export const FlagshipShowrooms: React.FC<Props> = ({ onBookAppointment }) => {
+export const FlagshipShowrooms: React.FC<Props> = ({
+  onBookAppointment,
+  activeView: propActiveView,
+  onViewChange,
+  activeShowroomId: propActiveShowroomId,
+  onSelectShowroomId,
+}) => {
   const [selectedCity, setSelectedCity] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [activeView, setActiveView] = useState<'showroom' | 'map'>('showroom');
-  const [activeShowroomId, setActiveShowroomId] = useState<string>('choglamsar');
+  const [internalView, setInternalView] = useState<'showroom' | 'map'>('showroom');
+  const [internalShowroomId, setInternalShowroomId] = useState<string>('choglamsar');
+
+  const activeView = propActiveView !== undefined ? propActiveView : internalView;
+  const setActiveView = (view: 'showroom' | 'map') => {
+    setInternalView(view);
+    if (onViewChange) onViewChange(view);
+  };
+
+  const activeShowroomId =
+    propActiveShowroomId !== undefined ? propActiveShowroomId : internalShowroomId;
+  const setActiveShowroomId = (id: string) => {
+    setInternalShowroomId(id);
+    if (onSelectShowroomId) onSelectShowroomId(id);
+  };
+
+  // If external activeShowroomId changes, ensure city filter stays compatible or resets to all
+  useEffect(() => {
+    if (propActiveShowroomId) {
+      setInternalShowroomId(propActiveShowroomId);
+    }
+  }, [propActiveShowroomId]);
 
   const filteredShowrooms = SHOWROOMS_DATA.filter((s) => {
     const matchesCity = selectedCity === 'all' || s.id === selectedCity;
@@ -176,6 +208,7 @@ export const FlagshipShowrooms: React.FC<Props> = ({ onBookAppointment }) => {
                 <img
                   src={activeShowroom.image}
                   alt={activeShowroom.name}
+                  referrerPolicy="no-referrer"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/30" />
@@ -248,6 +281,46 @@ export const FlagshipShowrooms: React.FC<Props> = ({ onBookAppointment }) => {
                       ))}
                     </div>
                   </div>
+                  {/* 4 Store Photos Mini-Thumbnails */}
+                  <div className="mt-5 space-y-2">
+                    <div className="flex items-center justify-between text-[11px] font-bold text-stone-500 uppercase tracking-wider">
+                      <span>Explore Our 4 Store Boutique Interiors:</span>
+                      <span className="text-[#8C6D23] font-semibold">Click to preview</span>
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                      {SHOWROOMS_DATA.map((s) => {
+                        const isSel = activeShowroomId === s.id;
+                        return (
+                          <button
+                            key={s.id}
+                            type="button"
+                            onClick={() => setActiveShowroomId(s.id)}
+                            className={`relative rounded-xl overflow-hidden aspect-[4/3] border-2 transition-all group/thumb text-left ${
+                              isSel
+                                ? 'border-[#D4AF37] ring-2 ring-[#D4AF37]/40 shadow-md'
+                                : 'border-stone-200 opacity-80 hover:opacity-100 hover:border-stone-400'
+                            }`}
+                          >
+                            <img
+                              src={s.image}
+                              alt={s.name}
+                              referrerPolicy="no-referrer"
+                              className="w-full h-full object-cover group-hover/thumb:scale-110 transition-transform duration-500"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-1.5">
+                              <span
+                                className={`text-[10px] font-bold truncate ${
+                                  isSel ? 'text-[#F3DE8A]' : 'text-white'
+                                }`}
+                              >
+                                {s.city}
+                              </span>
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
 
                 {/* Showroom Switcher & Book Appointment */}
@@ -282,53 +355,240 @@ export const FlagshipShowrooms: React.FC<Props> = ({ onBookAppointment }) => {
             </div>
           </div>
         ) : (
-          /* Interactive Map View */
-          <div className="bg-white rounded-3xl border border-[#D4AF37]/30 shadow-xl p-6 sm:p-8">
-            <div className="text-center mb-6">
-              <h3 className="font-playfair text-2xl font-bold text-[#2B090F]">
-                Ladakh Territory Showroom Map
-              </h3>
-              <p className="text-xs text-stone-500 mt-1">
-                Click on any pin to inspect the flagship boutique and concierge timings.
-              </p>
+          /* Interactive Google Maps Store Locator View for all 4 stores */
+          <div className="bg-white rounded-3xl border border-[#D4AF37]/30 shadow-xl p-6 sm:p-8 space-y-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-stone-200 pb-5">
+              <div>
+                <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#8C6D23] uppercase tracking-wider mb-1">
+                  <Navigation className="w-3.5 h-3.5 text-[#B38F2C]" />
+                  <span>Google Maps Ladakh Store Locator</span>
+                </div>
+                <h3 className="font-playfair text-2xl sm:text-3xl font-bold text-[#2B090F]">
+                  Our 4 Flagship Showrooms on Google Maps
+                </h3>
+                <p className="text-xs text-stone-500 mt-1">
+                  Live satellite mapping, physical addresses, directions, and concierge hotline for all 4 Ladakh boutiques.
+                </p>
+              </div>
+
+              {/* External Google Maps Button */}
+              {activeShowroom.googleMapsUrl && (
+                <a
+                  href={activeShowroom.googleMapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#4A1017] text-white hover:bg-[#681822] text-xs font-bold shadow-sm transition-all shrink-0"
+                >
+                  <span>Open in Google Maps</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              )}
             </div>
 
-            {/* Stylized Map Container */}
-            <div className="relative aspect-[16/9] max-h-[460px] w-full rounded-2xl bg-[#201B1A] overflow-hidden border-2 border-[#D4AF37]/40 shadow-inner flex items-center justify-center">
-              {/* Background mountain contour texture */}
-              <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:16px_16px]" />
-
-              {/* Map pins for 4 stores */}
+            {/* 4 Showroom Tabs Selector */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
               {SHOWROOMS_DATA.map((s) => {
-                const isActive = s.id === activeShowroomId;
+                const isCurrent = s.id === activeShowroomId;
                 return (
                   <button
                     key={s.id}
                     type="button"
-                    onClick={() => {
-                      setActiveShowroomId(s.id);
-                      setActiveView('showroom');
-                    }}
-                    style={{ left: `${s.mapCoords.x}%`, top: `${s.mapCoords.y}%` }}
-                    className="absolute -translate-x-1/2 -translate-y-1/2 group cursor-pointer"
+                    onClick={() => setActiveShowroomId(s.id)}
+                    className={`p-3.5 rounded-2xl text-left border transition-all ${
+                      isCurrent
+                        ? 'bg-[#4A1017] text-white border-[#D4AF37] shadow-md ring-2 ring-[#D4AF37]/30'
+                        : 'bg-[#FAF7F2] text-stone-700 border-stone-200 hover:border-[#B38F2C]'
+                    }`}
                   >
-                    <div className="relative flex flex-col items-center">
-                      <div
-                        className={`w-8 h-8 rounded-full border-2 flex items-center justify-center shadow-lg transition-all ${
-                          isActive
-                            ? 'bg-[#F3DE8A] text-[#4A1017] border-white scale-125'
-                            : 'bg-[#4A1017] text-[#F3DE8A] border-[#D4AF37] group-hover:scale-110'
-                        }`}
-                      >
-                        <MapPin className="w-4 h-4" />
-                      </div>
-                      <span className="mt-1 px-2 py-0.5 rounded-full bg-black/80 text-white text-[10px] font-bold tracking-wider backdrop-blur-xs whitespace-nowrap border border-white/20">
+                    <div className="flex items-center justify-between gap-1">
+                      <span className={`text-xs font-bold ${isCurrent ? 'text-[#F5E5B8]' : 'text-[#4A1017]'}`}>
                         {s.city}
                       </span>
+                      <span
+                        className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
+                          isCurrent ? 'bg-white/20 text-white' : 'bg-stone-200/80 text-stone-600'
+                        }`}
+                      >
+                        ★ {s.rating}
+                      </span>
                     </div>
+                    <p className={`text-[11px] truncate mt-1 ${isCurrent ? 'text-stone-200' : 'text-stone-500'}`}>
+                      {s.tagline}
+                    </p>
                   </button>
                 );
               })}
+            </div>
+
+            {/* Main Interactive Map & Details Split */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              {/* Google Maps Embed Iframe */}
+              <div className="lg:col-span-8 rounded-2xl overflow-hidden border border-stone-300 relative bg-stone-100 min-h-[380px] sm:min-h-[460px] shadow-inner">
+                {activeShowroom.googleMapsEmbedUrl ? (
+                  <iframe
+                    title={`Google Map - ${activeShowroom.name}`}
+                    src={activeShowroom.googleMapsEmbedUrl}
+                    width="100%"
+                    height="100%"
+                    className="w-full h-full min-h-[380px] sm:min-h-[460px] border-0"
+                    loading="lazy"
+                    allowFullScreen
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center p-6 text-stone-500 text-xs">
+                    Map preview loading...
+                  </div>
+                )}
+
+                {/* Floating Map Overlay Badge */}
+                <div className="absolute top-3 left-3 bg-black/80 backdrop-blur-md text-white px-3.5 py-1.5 rounded-full text-xs font-semibold border border-white/20 flex items-center gap-2 shadow-lg">
+                  <MapPin className="w-3.5 h-3.5 text-[#F3DE8A]" />
+                  <span className="font-bold">{activeShowroom.city}:</span>
+                  <span className="hidden sm:inline text-stone-200 text-[11px] truncate max-w-xs">
+                    {activeShowroom.address}
+                  </span>
+                </div>
+              </div>
+
+              {/* Showroom Details & Direction Actions */}
+              <div className="lg:col-span-4 bg-[#FAF7F2] p-5 sm:p-6 rounded-2xl border border-stone-200 flex flex-col justify-between space-y-5">
+                <div>
+                  <div className="inline-flex items-center gap-1.5 text-[10px] font-bold text-[#8C6D23] uppercase tracking-wider bg-white px-2.5 py-1 rounded-full border border-stone-200 mb-2">
+                    <Sparkles className="w-3 h-3 text-[#B38F2C]" />
+                    <span>{activeShowroom.city} Flagship Boutique</span>
+                  </div>
+
+                  <h4 className="font-playfair text-xl sm:text-2xl font-bold text-[#2B090F] leading-snug">
+                    {activeShowroom.name}
+                  </h4>
+
+                  <div className="mt-4 space-y-3 text-xs text-stone-600">
+                    <div className="flex items-start gap-2.5">
+                      <MapPin className="w-4 h-4 text-[#4A1017] shrink-0 mt-0.5" />
+                      <div>
+                        <span className="font-semibold text-stone-800">Physical Address:</span>
+                        <p className="mt-0.5">{activeShowroom.address}</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-2.5">
+                      <Clock className="w-4 h-4 text-[#4A1017] shrink-0 mt-0.5" />
+                      <div>
+                        <span className="font-semibold text-stone-800">Visiting Hours:</span>
+                        <p className="mt-0.5">{activeShowroom.timings}</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-2.5">
+                      <Phone className="w-4 h-4 text-[#4A1017] shrink-0 mt-0.5" />
+                      <div>
+                        <span className="font-semibold text-stone-800">Concierge Hotline:</span>
+                        <p className="mt-0.5">
+                          <a
+                            href={`tel:${activeShowroom.phone}`}
+                            className="text-[#4A1017] font-bold hover:underline"
+                          >
+                            {activeShowroom.phone}
+                          </a>
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-2.5">
+                      <UserCheck className="w-4 h-4 text-[#4A1017] shrink-0 mt-0.5" />
+                      <div>
+                        <span className="font-semibold text-stone-800">Store Manager:</span>
+                        <p className="mt-0.5">{activeShowroom.conciergeManager}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Actions */}
+                <div className="space-y-2 pt-3 border-t border-stone-200">
+                  {activeShowroom.googleMapsUrl && (
+                    <a
+                      href={activeShowroom.googleMapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full py-2.5 px-4 bg-[#4A1017] hover:bg-[#681822] text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-sm transition-all"
+                    >
+                      <Navigation className="w-3.5 h-3.5 text-[#F3DE8A]" />
+                      <span>Get Directions on Google Maps ↗</span>
+                    </a>
+                  )}
+
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      type="button"
+                      onClick={() => onBookAppointment(activeShowroom)}
+                      className="py-2 px-3 bg-white hover:bg-stone-50 text-stone-800 border border-stone-300 rounded-xl text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-colors"
+                    >
+                      <Calendar className="w-3 h-3 text-[#B38F2C]" />
+                      <span>Book Visit</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setActiveView('showroom')}
+                      className="py-2 px-3 bg-white hover:bg-stone-50 text-stone-800 border border-stone-300 rounded-xl text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-colors"
+                    >
+                      <Store className="w-3 h-3 text-[#4A1017]" />
+                      <span>View Photos</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 4 Flagship Boutiques Summary Cards */}
+            <div className="pt-4 border-t border-stone-200">
+              <div className="text-xs font-bold text-[#4A1017] uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                <Store className="w-3.5 h-3.5" />
+                <span>All 4 Ladakh Flagship Boutiques at a Glance</span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                {SHOWROOMS_DATA.map((s) => (
+                  <div
+                    key={s.id}
+                    className={`p-3.5 rounded-2xl border transition-all ${
+                      s.id === activeShowroomId
+                        ? 'bg-[#FAF1E4] border-[#D4AF37] shadow-sm'
+                        : 'bg-white border-stone-200 hover:border-stone-300'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="font-bold text-xs text-[#2B090F]">{s.city}</span>
+                      <span className="text-[10px] text-emerald-600 font-semibold flex items-center gap-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                        <span>Open Today</span>
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-stone-600 mt-1 line-clamp-2">{s.address}</p>
+                    <p className="text-[11px] text-[#8C6D23] font-semibold mt-1.5">{s.phone}</p>
+                    <div className="mt-2.5 pt-2 border-t border-stone-100 flex items-center justify-between">
+                      <button
+                        type="button"
+                        onClick={() => setActiveShowroomId(s.id)}
+                        className="text-[11px] text-[#4A1017] font-bold hover:underline"
+                      >
+                        Select on Map
+                      </button>
+                      {s.googleMapsUrl && (
+                        <a
+                          href={s.googleMapsUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[11px] text-[#B38F2C] hover:underline flex items-center gap-0.5"
+                        >
+                          <span>Directions ↗</span>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         )}

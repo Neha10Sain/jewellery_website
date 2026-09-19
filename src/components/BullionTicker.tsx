@@ -67,26 +67,33 @@ export const BullionTicker: React.FC<Props> = ({ onOpenDigitalGold }) => {
             </button>
           </div>
 
-          {/* Marquee / Rates Row */}
-          <div className="flex-1 overflow-x-auto no-scrollbar flex items-center gap-6 text-[12px] font-medium whitespace-nowrap px-2">
-            {rates.map((rate, idx) => (
-              <div key={idx} className="flex items-center gap-1.5">
-                <span className="text-stone-300">{rate.name}:</span>
-                <span className="font-bold text-white tracking-wide">
-                  ₹{rate.ratePerGram.toLocaleString('en-IN')}{rate.name.includes('Silver') ? '/gm' : '/gm'}
-                </span>
-                <span
-                  className={`flex items-center text-[10px] font-semibold px-1 rounded ${
-                    rate.isPositive ? 'text-[#34D399] bg-[#064E3B]/40' : 'text-[#F87171] bg-[#7F1D1D]/40'
-                  }`}
-                >
-                  <TrendingUp className="w-2.5 h-2.5 mr-0.5 inline" />
-                  {rate.isPositive ? '+' : ''}
-                  {rate.changePercent}%
-                </span>
-                {idx < rates.length - 1 && <span className="text-stone-600 ml-3">•</span>}
-              </div>
-            ))}
+          {/* Infinity Scroll Rates Marquee */}
+          <div className="flex-1 overflow-hidden relative group min-w-0">
+            {/* Subtle edge fade gradients */}
+            <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-[#1F080C] to-transparent z-10" />
+            <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-6 bg-gradient-to-l from-[#1F080C] to-transparent z-10" />
+
+            <div className="animate-ticker-infinite flex items-center py-0.5 whitespace-nowrap cursor-default">
+              {/* Duplicated items for continuous seamless loop */}
+              {[...rates, ...rates].map((rate, idx) => (
+                <div key={idx} className="flex items-center gap-2 shrink-0 px-5 text-[12px] font-medium">
+                  <span className="text-stone-300">{rate.name}:</span>
+                  <span className="font-bold text-white tracking-wide">
+                    ₹{rate.ratePerGram.toLocaleString('en-IN')}{rate.name.includes('Silver') ? '/gm' : '/gm'}
+                  </span>
+                  <span
+                    className={`flex items-center text-[10px] font-semibold px-1.5 py-0.5 rounded ${
+                      rate.isPositive ? 'text-[#34D399] bg-[#064E3B]/50' : 'text-[#F87171] bg-[#7F1D1D]/50'
+                    }`}
+                  >
+                    <TrendingUp className="w-2.5 h-2.5 mr-0.5 inline" />
+                    {rate.isPositive ? '+' : ''}
+                    {rate.changePercent}%
+                  </span>
+                  <span className="text-[#D4AF37]/40 font-bold ml-3 select-none">✦</span>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Right Action CTA */}

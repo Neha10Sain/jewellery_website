@@ -66,8 +66,7 @@ export const SHOWROOMS_DATA: Showroom[] = [
     phone: '+91 95418 97567',
     rating: 4.9,
     reviewsCount: 1420,
-    // Real luxury jewellery store with showcase vitrines and gold counters
-    image: 'https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://manubhai.in/wp-content/uploads/2025/07/Gallery-Of-Flagship_3.jpg',
     mapCoords: { x: 58, y: 52 },
     privileges: [
       'Private Bridal Suite',
@@ -76,6 +75,9 @@ export const SHOWROOMS_DATA: Showroom[] = [
       'Gold Savings & Rental Desk',
     ],
     features: ['Flagship Boutique', 'Bridal Specialist', 'Bullion Exchange'],
+    googleMapsUrl: 'https://maps.google.com/?q=Guge+Complex,+Opposite+HDFC+Bank,+Choglamsar,+Leh,+Ladakh+194104',
+    googleMapsEmbedUrl: 'https://maps.google.com/maps?q=Guge+Complex,+Opposite+HDFC+Bank,+Choglamsar,+Leh,+Ladakh+194104&t=&z=15&ie=UTF8&iwloc=&output=embed',
+    coordinates: { lat: 34.1250, lng: 77.5890 },
   },
   {
     id: 'leh',
@@ -88,8 +90,7 @@ export const SHOWROOMS_DATA: Showroom[] = [
     phone: '+91 99285 41909',
     rating: 4.9,
     reviewsCount: 2180,
-    // High-end luxury jewellery boutique interior with sparkling chandeliers and glass cases
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://5.imimg.com/data5/SELLER/Default/2025/10/550030032/HL/MT/GD/241830583/jewellery-shops-interiors-500x500.png',
     mapCoords: { x: 50, y: 44 },
     privileges: [
       'Heritage Gold Archive',
@@ -98,6 +99,9 @@ export const SHOWROOMS_DATA: Showroom[] = [
       'BIS Hallmark Testing',
     ],
     features: ['Heritage Collection', 'Master Artisans', 'Bullion Counter'],
+    googleMapsUrl: 'https://maps.google.com/?q=Skitchan+Ngodup+Complex,+Near+Old+Bus+Stand,+Leh,+Ladakh+194101',
+    googleMapsEmbedUrl: 'https://maps.google.com/maps?q=Skitchan+Ngodup+Complex,+Near+Old+Bus+Stand,+Leh,+Ladakh+194101&t=&z=16&ie=UTF8&iwloc=&output=embed',
+    coordinates: { lat: 34.1642, lng: 77.5848 },
   },
   {
     id: 'kargil',
@@ -110,8 +114,7 @@ export const SHOWROOMS_DATA: Showroom[] = [
     phone: '+91 94191 76231',
     rating: 4.8,
     reviewsCount: 890,
-    // Real jewellery salon with bridal gold counters and glass cabinets
-    image: 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://d91ztqmtx7u1k.cloudfront.net/ClientContent/Images/ExtraLarge/jewellery-shops-interiors-20240501181825733.jpeg',
     mapCoords: { x: 28, y: 38 },
     privileges: [
       'Bridal Gold Lounge',
@@ -120,6 +123,9 @@ export const SHOWROOMS_DATA: Showroom[] = [
       'Custom Minted Coins',
     ],
     features: ['Bridal Suites', 'Pure Bullion', 'Private Consultation'],
+    googleMapsUrl: 'https://maps.google.com/?q=Silk+Route+Galleria,+Main+Market+Square,+Kargil,+Ladakh+194103',
+    googleMapsEmbedUrl: 'https://maps.google.com/maps?q=Silk+Route+Galleria,+Main+Market+Square,+Kargil,+Ladakh+194103&t=&z=15&ie=UTF8&iwloc=&output=embed',
+    coordinates: { lat: 34.5539, lng: 76.1349 },
   },
   {
     id: 'zanskar',
@@ -132,8 +138,7 @@ export const SHOWROOMS_DATA: Showroom[] = [
     phone: '+91 96229 88124',
     rating: 4.9,
     reviewsCount: 460,
-    // Luxury jewellery store interior
-    image: 'https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://5.imimg.com/data5/SELLER/Default/2026/8/631495462/VB/PO/EV/272532207/jewellery-shop-interior-designing-services-500x500.jpeg',
     mapCoords: { x: 42, y: 72 },
     privileges: [
       'Himalayan Gemstones',
@@ -142,6 +147,9 @@ export const SHOWROOMS_DATA: Showroom[] = [
       'Gold Coin Desk',
     ],
     features: ['Valley Boutique', 'Rare Gemstones', 'Heirloom Care'],
+    googleMapsUrl: 'https://maps.google.com/?q=Central+Padum+Market,+Gompa+Road,+Zanskar+Valley,+Ladakh+194302',
+    googleMapsEmbedUrl: 'https://maps.google.com/maps?q=Central+Padum+Market,+Gompa+Road,+Zanskar+Valley,+Ladakh+194302&t=&z=15&ie=UTF8&iwloc=&output=embed',
+    coordinates: { lat: 33.4682, lng: 76.8833 },
   },
 ];
 

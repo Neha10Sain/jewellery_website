@@ -97,3 +97,25 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #4A1017;
 }
+
+/* Infinite Marquee Ticker for Live Bullion Rates */
+@keyframes tickerLoop {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-ticker-infinite {
+  display: flex;
+  width: max-content;
+  animation: tickerLoop 30s linear infinite;
+  will-change: transform;
+}
+
+.animate-ticker-infinite:hover {
+  animation-play-state: paused;
+}
+

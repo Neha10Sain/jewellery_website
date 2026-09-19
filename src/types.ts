@@ -52,6 +52,9 @@ export interface Showroom {
   mapCoords: { x: number; y: number };
   privileges: string[];
   features: string[];
+  googleMapsUrl?: string;
+  googleMapsEmbedUrl?: string;
+  coordinates?: { lat: number; lng: number };
 }
 
 export interface CartItem {

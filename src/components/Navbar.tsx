@@ -10,6 +10,7 @@ import {
   FileCode2,
   Calculator,
   UserCheck,
+  User,
   Clock,
   Sparkles,
   ShieldCheck,
@@ -25,7 +26,7 @@ interface Props {
   onOpenSavingsScheme: () => void;
   onOpenDigitalGold: () => void;
   onSelectProduct: (item: JewelleryItem) => void;
-  onScrollToShowrooms: () => void;
+  onScrollToShowrooms: (view?: 'showroom' | 'map', showroomId?: string) => void;
   onOpenDeployGuide: () => void;
   onSelectCategory: (category: string) => void;
   onOpenAdmin: () => void;
@@ -198,21 +199,10 @@ export const Navbar: React.FC<Props> = ({
             <span>Rental</span>
           </button>
 
-          {/* Admin / Profile Portal Button */}
-          <button
-            type="button"
-            onClick={onOpenAdmin}
-            className="flex items-center gap-1.5 text-xs font-bold text-[#4A1017] bg-white hover:bg-stone-50 px-3 py-1.5 rounded-full border border-[#D4AF37] transition-all shadow-2xs group"
-            title="Admin & Store Manager Portal"
-          >
-            <UserCheck className="w-3.5 h-3.5 text-[#B38F2C] group-hover:scale-110 transition-transform" />
-            <span className="hidden sm:inline">Admin Portal</span>
-          </button>
-
           {/* Showrooms */}
           <button
             type="button"
-            onClick={onScrollToShowrooms}
+            onClick={() => onScrollToShowrooms('showroom')}
             className="hidden lg:flex items-center gap-1.5 text-xs font-semibold text-stone-700 hover:text-[#4A1017] px-3 py-1.5 rounded-full hover:bg-white transition-colors"
           >
             <MapPin className="w-3.5 h-3.5 text-[#B38F2C]" />
@@ -257,6 +247,17 @@ export const Navbar: React.FC<Props> = ({
                 {cartCount}
               </span>
             )}
+          </button>
+
+          {/* User Profile / Admin Portal Button */}
+          <button
+            type="button"
+            onClick={onOpenAdmin}
+            className="w-9 h-9 rounded-full bg-white hover:bg-stone-50 flex items-center justify-center border border-stone-200 hover:border-[#D4AF37] text-stone-700 hover:text-[#4A1017] transition-colors relative shadow-2xs active:scale-95 group"
+            title="User Profile & Admin Portal"
+            aria-label="User Profile & Admin Portal"
+          >
+            <User className="w-4 h-4 text-[#4A1017] group-hover:scale-110 transition-transform" />
           </button>
 
           {/* Mobile Menu Toggle */}
@@ -311,14 +312,7 @@ export const Navbar: React.FC<Props> = ({
             <span>Rental Jewellery</span>
           </button>
           <button
-            onClick={onOpenEMI}
-            className="hover:text-[#4A1017] transition-colors flex items-center gap-1"
-          >
-            <Calculator className="w-3 h-3 text-[#B38F2C]" />
-            <span>0% EMI Calculator</span>
-          </button>
-          <button
-            onClick={onScrollToShowrooms}
+            onClick={() => onScrollToShowrooms('showroom')}
             className="hover:text-[#4A1017] transition-colors flex items-center gap-1"
           >
             <MapPin className="w-3 h-3 text-[#B38F2C]" />

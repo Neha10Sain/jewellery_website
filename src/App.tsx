@@ -18,8 +18,9 @@ import { VercelDeployGuideModal } from './components/VercelDeployGuideModal';
 import { AdminPanelModal } from './components/AdminPanelModal';
 import { EMICalculatorModal } from './components/EMICalculatorModal';
 import { RentalModal } from './components/RentalModal';
+import { ConciergeChatbot } from './components/ConciergeChatbot';
 
-import { JEWELLERY_PRODUCTS, INITIAL_PROMOTIONS } from './data/jewelleryData';
+import { JEWELLERY_PRODUCTS, INITIAL_PROMOTIONS, SHOWROOMS_DATA } from './data/jewelleryData';
 import { JewelleryItem, Showroom, CartItem, MetalType, GemstoneType, PromotionalOffer } from './types';
 import { Check, Bell, ShieldCheck, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
@@ -254,8 +255,16 @@ export default function App() {
     }
   };
 
+  // Showrooms active view and target ID
+  const [showroomActiveView, setShowroomActiveView] = useState<'showroom' | 'map'>('showroom');
+  const [showroomActiveId, setShowroomActiveId] = useState<string>('choglamsar');
+
   // Smooth scrolls
-  const scrollToShowrooms = () => {
+  const scrollToShowrooms = (view: 'showroom' | 'map' = 'showroom', showroomId?: string) => {
+    setShowroomActiveView(view);
+    if (showroomId) {
+      setShowroomActiveId(showroomId);
+    }
     const el = document.getElementById('showrooms-section');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
@@ -336,6 +345,10 @@ export default function App() {
       {/* 5. 4 Flagship Showrooms in Ladakh: Real Luxury Boutiques Photos */}
       <FlagshipShowrooms
         onBookAppointment={(showroom) => setAppointmentShowroom(showroom)}
+        activeView={showroomActiveView}
+        onViewChange={setShowroomActiveView}
+        activeShowroomId={showroomActiveId}
+        onSelectShowroomId={setShowroomActiveId}
       />
 
       {/* 6. Himalayan Goldsmith Heritage & BIS 916 Legacy */}
@@ -352,21 +365,15 @@ export default function App() {
         onOpenRental={() => openRentalModal()}
       />
 
-      {/* Floating Action Badges */}
-      <aside aria-label="Demo and admin triggers" className="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-2">
-        <button
-          type="button"
-          onClick={() => setIsAdminOpen(true)}
-          className="flex items-center gap-2 bg-[#4A1017] text-[#F5E5B8] px-4 py-2 rounded-full shadow-2xl border border-[#D4AF37] hover:scale-105 transition-all text-xs font-bold"
-        >
-          <Sparkles className="w-3.5 h-3.5 text-[#F3DE8A]" />
-          <span>Admin & Offer Manager</span>
-        </button>
-
+      {/* Floating Action Badges - Positioned cleanly stacked ON TOP of the Phone & Help buttons */}
+      <aside
+        aria-label="Demo and admin triggers"
+        className="fixed bottom-[126px] sm:bottom-[136px] right-5 sm:right-6 z-40 flex flex-col items-end gap-2 pointer-events-auto"
+      >
         <button
           type="button"
           onClick={() => setIsDeployGuideOpen(true)}
-          className="flex items-center gap-2 bg-[#000000] text-white px-4 py-2 rounded-full shadow-2xl border border-stone-700 hover:border-[#34D399] hover:scale-105 transition-all text-xs font-bold"
+          className="flex items-center gap-2 bg-[#000000] text-white px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-2xl border border-stone-700 hover:border-[#34D399] hover:scale-105 active:scale-95 transition-all text-xs font-bold"
         >
           <span className="w-2 h-2 rounded-full bg-[#34D399] animate-ping" />
           <span>Deploy on Vercel Free</span>
@@ -499,6 +506,15 @@ export default function App() {
             details.startDate
           );
         }}
+      />
+
+      {/* Royal Concierge Chatbot on Bottom Right */}
+      <ConciergeChatbot
+        onOpenAppointment={(showroom) => {
+          setAppointmentShowroom(showroom || SHOWROOMS_DATA[0]);
+        }}
+        onOpenShowrooms={scrollToShowrooms}
+        onOpenDigitalGold={() => setIsDigitalGoldOpen(true)}
       />
     </div>
   );

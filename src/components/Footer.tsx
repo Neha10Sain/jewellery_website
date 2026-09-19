@@ -8,6 +8,7 @@ import {
   FileCode2,
   Calculator,
   UserCheck,
+  ExternalLink,
 } from 'lucide-react';
 import { SHOWROOMS_DATA } from '../data/jewelleryData';
 
@@ -15,7 +16,7 @@ interface Props {
   onOpenDeployGuide: () => void;
   onOpenSavingsScheme: () => void;
   onOpenDigitalGold: () => void;
-  onScrollToShowrooms: () => void;
+  onScrollToShowrooms: (view?: 'showroom' | 'map', showroomId?: string) => void;
   onOpenAdmin?: () => void;
   onOpenEMI?: () => void;
   onOpenRental?: () => void;
@@ -138,15 +139,19 @@ export const Footer: React.FC<Props> = ({
           {/* 4 Boutiques Directory */}
           <div className="lg:col-span-2 space-y-3 text-xs">
             <div className="flex items-center justify-between">
-              <h4 className="font-playfair font-bold text-[#F5E5B8] text-sm uppercase tracking-wider">
-                Our 4 Ladakh Showrooms
-              </h4>
               <button
                 type="button"
-                onClick={onScrollToShowrooms}
-                className="text-[11px] text-[#D4AF37] hover:underline"
+                onClick={() => onScrollToShowrooms('showroom')}
+                className="font-playfair font-bold text-[#F5E5B8] text-sm uppercase tracking-wider hover:text-[#D4AF37] transition-colors text-left"
               >
-                View on Map →
+                Our 4 Ladakh Showrooms
+              </button>
+              <button
+                type="button"
+                onClick={() => onScrollToShowrooms('map')}
+                className="text-[11px] text-[#D4AF37] hover:underline font-semibold flex items-center gap-1"
+              >
+                <span>View on Map →</span>
               </button>
             </div>
 
@@ -154,15 +159,42 @@ export const Footer: React.FC<Props> = ({
               {SHOWROOMS_DATA.map((s) => (
                 <div
                   key={s.id}
-                  onClick={onScrollToShowrooms}
-                  className="p-2.5 rounded-xl bg-black/40 border border-stone-800 hover:border-[#D4AF37]/50 cursor-pointer transition-all"
+                  onClick={() => onScrollToShowrooms('showroom', s.id)}
+                  className="p-2.5 rounded-xl bg-black/40 border border-stone-800 hover:border-[#D4AF37]/50 cursor-pointer transition-all group"
                 >
-                  <div className="font-bold text-white text-xs flex items-center gap-1">
-                    <MapPin className="w-3 h-3 text-[#D4AF37]" />
-                    <span>{s.city}</span>
+                  <div className="font-bold text-white text-xs flex items-center justify-between">
+                    <div className="flex items-center gap-1">
+                      <MapPin className="w-3 h-3 text-[#D4AF37]" />
+                      <span>{s.city}</span>
+                    </div>
+                    {s.googleMapsUrl && (
+                      <a
+                        href={s.googleMapsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="text-[10px] text-[#D4AF37] hover:underline flex items-center gap-0.5"
+                        title="Open in Google Maps"
+                      >
+                        <span>Map</span>
+                        <ExternalLink className="w-2.5 h-2.5" />
+                      </a>
+                    )}
                   </div>
                   <p className="text-[10px] text-stone-400 truncate mt-0.5">{s.address}</p>
-                  <p className="text-[10px] text-[#D4AF37] mt-1">{s.phone}</p>
+                  <div className="flex items-center justify-between mt-1 text-[10px]">
+                    <span className="text-[#D4AF37]">{s.phone}</span>
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onScrollToShowrooms('map', s.id);
+                      }}
+                      className="text-stone-400 hover:text-[#F3DE8A] underline"
+                    >
+                      Locate
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
