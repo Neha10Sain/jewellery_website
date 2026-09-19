@@ -1,38 +1,50 @@
 import React, { useState } from 'react';
-import { Sparkles, Heart, Eye, ShoppingBag, ShieldCheck, Star } from 'lucide-react';
-import { JEWELLERY_PRODUCTS } from '../data/jewelleryData';
-import { JewelleryItem, MetalType, GemstoneType } from '../types';
+import { Sparkles, Heart, Eye, ShoppingBag, ShieldCheck, Clock, Calculator } from 'lucide-react';
+import { JewelleryItem } from '../types';
 
 interface Props {
+  products: JewelleryItem[];
   onOpen3DModal: (item: JewelleryItem) => void;
   onAddToCart: (item: JewelleryItem) => void;
   onToggleWishlist: (item: JewelleryItem) => void;
   wishlistIds: string[];
   activeCategory: string;
   onCategoryChange: (cat: string) => void;
+  onOpenRental?: (item: JewelleryItem) => void;
+  onOpenEMI?: (price: number) => void;
 }
 
 export const CollectionsGrid: React.FC<Props> = ({
+  products,
   onOpen3DModal,
   onAddToCart,
   onToggleWishlist,
   wishlistIds,
   activeCategory,
   onCategoryChange,
+  onOpenRental,
+  onOpenEMI,
 }) => {
   const [purityFilter, setPurityFilter] = useState<string>('all');
 
   const categories = [
-    { id: 'all', label: 'All Jewels' },
-    { id: 'rings', label: '3D Rings' },
-    { id: 'necklaces', label: 'Bridal & Chokers' },
-    { id: 'earrings', label: 'Jhumkas & Studs' },
-    { id: 'pendants', label: 'Pendants' },
+    { id: 'all', label: 'All Jewellery' },
+    { id: 'necklaces', label: 'Bridal Chokers' },
+    { id: 'bangles', label: 'Diamond Bangles' },
+    { id: 'earrings', label: 'Royal Earrings' },
+    { id: 'rings', label: 'Solitaire Rings' },
+    { id: 'rentals', label: '✨ Rental Jewellery' },
     { id: 'coins', label: 'Gold Bullion Coins' },
   ];
 
-  const filteredProducts = JEWELLERY_PRODUCTS.filter((item) => {
-    const matchesCat = activeCategory === 'all' || item.category === activeCategory;
+  const filteredProducts = products.filter((item) => {
+    let matchesCat = true;
+    if (activeCategory === 'rentals') {
+      matchesCat = !!item.isAvailableForRent;
+    } else if (activeCategory !== 'all') {
+      matchesCat = item.category === activeCategory;
+    }
+
     const matchesPurity =
       purityFilter === 'all' ||
       (purityFilter === '24k' && (item.purity.includes('24K') || item.metal === 'gold24k')) ||
@@ -42,33 +54,33 @@ export const CollectionsGrid: React.FC<Props> = ({
   });
 
   return (
-    <section id="collections-section" className="py-16 bg-[#FAF7F2] border-b border-[#E8DFC8]">
+    <section id="collections-section" className="py-14 bg-[#FAF7F2] border-b border-[#E8DFC8]">
       <div className="max-w-7xl mx-auto px-4">
-        {/* Section Header */}
+        {/* Section Header: Minimal & Understandable */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
           <div>
-            <div className="inline-flex items-center gap-1.5 text-[11px] font-bold tracking-widest text-[#B38F2C] uppercase font-cinzel mb-2">
+            <div className="inline-flex items-center gap-1.5 text-[11px] font-bold tracking-wider text-[#B38F2C] uppercase mb-1.5">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>HANDCRAFTED HIMALAYAN COLLECTIONS</span>
+              <span>HANDCRAFTED BRIDAL COLLECTIONS</span>
             </div>
-            <h2 className="font-cormorant text-3xl sm:text-4xl lg:text-5xl font-bold text-[#2B090F] tracking-tight">
-              Curated Royal Jewellery
+            <h2 className="font-playfair text-3xl sm:text-4xl font-bold text-[#2B090F] tracking-tight">
+              Featured Jewellery & Rentals
             </h2>
-            <p className="text-xs sm:text-sm text-stone-600 mt-1 max-w-xl">
-              From certified BIS 916 bridal chokers to custom 3D interactive solitaires, explore master craftsmanship shaped with ancient Himalayan heritage.
+            <p className="text-xs sm:text-sm text-stone-600 mt-1">
+              Select any piece to inspect in 360° 3D, customize metal, buy on 0% EMI, or rent for weddings.
             </p>
           </div>
 
-          {/* Metal Purity Filter Pills */}
+          {/* Metal Purity Filter */}
           <div className="flex items-center gap-2 overflow-x-auto pb-1">
-            <span className="text-xs font-semibold text-stone-500 whitespace-nowrap mr-1">
-              Purity:
+            <span className="text-xs font-semibold text-stone-500 whitespace-nowrap">
+              Filter:
             </span>
             {[
-              { id: 'all', label: 'All Purity' },
-              { id: '24k', label: '24K (999)' },
-              { id: '22k', label: '22K (916 BIS)' },
-              { id: '18k', label: '18K Diamond' },
+              { id: 'all', label: 'All' },
+              { id: '22k', label: '22K Gold' },
+              { id: '24k', label: '24K Gold' },
+              { id: '18k', label: '18K / Platinum' },
             ].map((p) => (
               <button
                 key={p.id}
@@ -76,7 +88,7 @@ export const CollectionsGrid: React.FC<Props> = ({
                 onClick={() => setPurityFilter(p.id)}
                 className={`px-3 py-1 text-xs rounded-full font-medium transition-all whitespace-nowrap ${
                   purityFilter === p.id
-                    ? 'bg-[#6B1724] text-white shadow-xs font-semibold'
+                    ? 'bg-[#4A1017] text-white font-semibold shadow-xs'
                     : 'bg-white text-stone-600 border border-stone-200 hover:border-stone-400'
                 }`}
               >
@@ -87,16 +99,16 @@ export const CollectionsGrid: React.FC<Props> = ({
         </div>
 
         {/* Category Tabs */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar border-b border-stone-200">
+        <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-6 no-scrollbar border-b border-stone-200">
           {categories.map((cat) => (
             <button
               key={cat.id}
               type="button"
               onClick={() => onCategoryChange(cat.id)}
-              className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
+              className={`px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
                 activeCategory === cat.id
-                  ? 'bg-[#4A1017] text-[#FAF7F2] shadow-md'
-                  : 'bg-white/70 text-stone-700 hover:bg-white border border-stone-200/80'
+                  ? 'bg-[#4A1017] text-white shadow-xs font-bold'
+                  : 'bg-white text-stone-700 hover:bg-stone-100 border border-stone-200'
               }`}
             >
               {cat.label}
@@ -104,32 +116,42 @@ export const CollectionsGrid: React.FC<Props> = ({
           ))}
         </div>
 
-        {/* Products Grid */}
+        {/* Products Grid: High visual emphasis on jewellery */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredProducts.map((item) => {
             const isWishlisted = wishlistIds.includes(item.id);
             return (
               <div
                 key={item.id}
-                className="group bg-white rounded-2xl border border-stone-200/90 hover:border-[#D4AF37] shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden"
+                className="group bg-white rounded-2xl border border-stone-200 hover:border-[#D4AF37] shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden"
               >
-                {/* Image Container with Badges */}
-                <div className="relative aspect-square overflow-hidden bg-stone-100">
+                {/* Visual Image Showcase */}
+                <div
+                  className="relative aspect-[4/3.8] overflow-hidden bg-stone-100 cursor-pointer"
+                  onClick={() => onOpen3DModal(item)}
+                >
                   <img
                     src={item.image}
                     alt={item.name}
-                    className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
 
-                  {/* Top Badges */}
-                  <div className="absolute top-3 left-3 flex flex-col gap-1.5 items-start">
-                    {item.tag && (
-                      <span className="bg-[#4A1017]/90 backdrop-blur-md text-[#F5E5B8] text-[10px] font-bold px-2.5 py-1 rounded-full border border-[#D4AF37]/30 shadow-xs uppercase">
-                        {item.tag}
+                  {/* Badges */}
+                  <div className="absolute top-2.5 left-2.5 flex flex-col gap-1 items-start">
+                    {item.isAvailableForRent && (
+                      <span className="bg-[#8C6D23] text-white text-[9px] font-bold px-2 py-0.5 rounded-md shadow-xs flex items-center gap-1">
+                        <Clock className="w-2.5 h-2.5 text-[#F3DE8A]" />
+                        <span>Rent ₹{item.rentalPricePerDay?.toLocaleString('en-IN')}/day</span>
+                      </span>
+                    )}
+                    {item.has3DModel && (
+                      <span className="bg-[#4A1017]/95 backdrop-blur-sm text-[#F5E5B8] text-[9px] font-bold px-2 py-0.5 rounded-md border border-[#D4AF37]/30 shadow-xs flex items-center gap-1">
+                        <Eye className="w-2.5 h-2.5 text-[#F3DE8A]" />
+                        <span>3D View</span>
                       </span>
                     )}
                     {item.hallmarkCertified && (
-                      <span className="bg-white/90 backdrop-blur-md text-[#6B1724] text-[9px] font-bold px-2 py-0.5 rounded-full border border-stone-200 shadow-xs flex items-center gap-1">
+                      <span className="bg-white/95 text-[#6B1724] text-[9px] font-bold px-1.5 py-0.5 rounded-md border border-stone-200 shadow-xs flex items-center gap-1">
                         <ShieldCheck className="w-3 h-3 text-[#B38F2C]" />
                         <span>BIS 916</span>
                       </span>
@@ -143,7 +165,7 @@ export const CollectionsGrid: React.FC<Props> = ({
                       e.stopPropagation();
                       onToggleWishlist(item);
                     }}
-                    className={`absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center backdrop-blur-md transition-all ${
+                    className={`absolute top-2.5 right-2.5 w-8 h-8 rounded-full flex items-center justify-center backdrop-blur-md transition-all ${
                       isWishlisted
                         ? 'bg-[#6B1724] text-white'
                         : 'bg-white/80 text-stone-600 hover:text-[#6B1724] hover:bg-white'
@@ -152,63 +174,76 @@ export const CollectionsGrid: React.FC<Props> = ({
                     <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-white' : ''}`} />
                   </button>
 
-                  {/* 3D Quick Inspect Overlay on Hover */}
+                  {/* Instant 3D View Button Bottom Bar */}
                   {item.has3DModel && (
-                    <div className="absolute inset-x-3 bottom-3 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
+                    <div className="absolute inset-x-2 bottom-2">
                       <button
                         type="button"
-                        onClick={() => onOpen3DModal(item)}
-                        className="flex-1 py-2 bg-[#4A1017]/90 backdrop-blur-md hover:bg-[#4A1017] text-white text-xs font-bold rounded-xl shadow-lg flex items-center justify-center gap-1.5 transition-all active:scale-95"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onOpen3DModal(item);
+                        }}
+                        className="w-full py-2 bg-black/80 hover:bg-black text-white text-xs font-semibold rounded-xl backdrop-blur-sm shadow-md flex items-center justify-center gap-1.5 transition-all"
                       >
                         <Eye className="w-3.5 h-3.5 text-[#F3DE8A]" />
-                        <span>Inspect in 3D</span>
+                        <span>Open 3D Studio</span>
                       </button>
                     </div>
                   )}
                 </div>
 
-                {/* Details Body */}
-                <div className="p-4 flex-1 flex flex-col justify-between space-y-3">
+                {/* Minimalist Info Card */}
+                <div className="p-3.5 flex-1 flex flex-col justify-between space-y-2">
                   <div>
-                    <div className="flex items-center justify-between text-[11px] text-stone-500 mb-1">
-                      <span className="uppercase tracking-wider font-semibold text-[#8C6D23]">
-                        {item.collection}
-                      </span>
-                      <div className="flex items-center gap-1 text-stone-700 font-semibold">
-                        <Star className="w-3 h-3 fill-[#D4AF37] text-[#D4AF37]" />
-                        <span>{item.rating}</span>
-                        <span className="text-[10px] text-stone-400">({item.reviewsCount})</span>
-                      </div>
+                    <div className="text-[11px] font-medium text-stone-500">
+                      {item.purity} • {item.weightGrams}g
                     </div>
 
-                    <h3 className="font-cormorant text-lg font-bold text-[#1F1615] group-hover:text-[#6B1724] transition-colors line-clamp-1">
+                    <h3
+                      onClick={() => onOpen3DModal(item)}
+                      className="font-playfair text-base font-bold text-[#1F1615] group-hover:text-[#6B1724] transition-colors line-clamp-1 cursor-pointer mt-0.5"
+                    >
                       {item.name}
                     </h3>
-
-                    <p className="text-xs text-stone-500 line-clamp-2 mt-1 leading-relaxed">
-                      {item.description}
-                    </p>
                   </div>
 
-                  {/* Price & Weight Row */}
-                  <div className="pt-2 border-t border-stone-100 flex items-end justify-between">
+                  {/* Pricing and Action Buttons */}
+                  <div className="pt-2 border-t border-stone-100 flex items-center justify-between">
                     <div>
-                      <div className="text-[10px] text-stone-400 font-medium">
-                        Gross Weight: {item.weightGrams}g • {item.purity}
-                      </div>
-                      <div className="font-cinzel text-base sm:text-lg font-bold text-[#4A1017]">
+                      <div className="font-playfair text-base font-bold text-[#4A1017]">
                         ₹{item.price.toLocaleString('en-IN')}
                       </div>
+                      <button
+                        type="button"
+                        onClick={() => onOpenEMI?.(item.price)}
+                        className="text-[10px] text-stone-500 hover:text-[#4A1017] flex items-center gap-1 underline font-medium"
+                      >
+                        <Calculator className="w-2.5 h-2.5" />
+                        <span>EMI from ₹{Math.round(item.price / 6).toLocaleString('en-IN')}/mo</span>
+                      </button>
                     </div>
 
-                    <button
-                      type="button"
-                      onClick={() => onAddToCart(item)}
-                      className="p-2.5 bg-[#FAF1E4] hover:bg-[#4A1017] text-[#4A1017] hover:text-white rounded-xl transition-all shadow-xs active:scale-95"
-                      title="Add to Shopping Bag"
-                    >
-                      <ShoppingBag className="w-4 h-4" />
-                    </button>
+                    <div className="flex items-center gap-1.5">
+                      {item.isAvailableForRent && (
+                        <button
+                          type="button"
+                          onClick={() => onOpenRental?.(item)}
+                          className="px-2 py-1.5 bg-[#FAF1E4] hover:bg-[#F3E5CC] text-[#8C6D23] text-[11px] font-bold rounded-xl border border-[#D4AF37]/40 transition-all"
+                          title="Rent this item"
+                        >
+                          Rent
+                        </button>
+                      )}
+
+                      <button
+                        type="button"
+                        onClick={() => onAddToCart(item)}
+                        className="p-2 bg-[#4A1017] hover:bg-[#681822] text-white rounded-xl transition-all shadow-xs active:scale-95"
+                        title="Add to Shopping Bag"
+                      >
+                        <ShoppingBag className="w-4 h-4" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { X, ShieldCheck, Sparkles, ShoppingBag, Heart, Check, Ruler } from 'lucide-react';
-import { JewelleryItem, MetalType, GemstoneType } from '../types';
+import { X, ShoppingBag, Heart, Check, Clock, Calculator } from 'lucide-react';
+import { JewelleryItem, MetalType, GemstoneType, OrnamentType } from '../types';
 import { ThreeJewelleryViewer, METAL_CONFIG, GEM_CONFIG } from './ThreeJewelleryViewer';
 
 interface Props {
@@ -9,6 +9,8 @@ interface Props {
   onAddToCartCustomized: (item: JewelleryItem, metal: MetalType, gemstone: GemstoneType, ringSize: string) => void;
   onToggleWishlist: (item: JewelleryItem) => void;
   isWishlisted: boolean;
+  onOpenRental?: (item: JewelleryItem) => void;
+  onOpenEMI?: (price: number) => void;
 }
 
 export const Product3DModal: React.FC<Props> = ({
@@ -17,6 +19,8 @@ export const Product3DModal: React.FC<Props> = ({
   onAddToCartCustomized,
   onToggleWishlist,
   isWishlisted,
+  onOpenRental,
+  onOpenEMI,
 }) => {
   if (!item) return null;
 
@@ -26,14 +30,23 @@ export const Product3DModal: React.FC<Props> = ({
   const [selectedRingSize, setSelectedRingSize] = useState<string>('14 (Indian / 54mm)');
   const [addedAnimation, setAddedAnimation] = useState<boolean>(false);
 
-  // Dynamic price calculation based on customized metal & gem
+  const initialOrnament: OrnamentType =
+    item.ornamentType ||
+    (item.category === 'necklaces'
+      ? 'necklace'
+      : item.category === 'bangles'
+      ? 'bangle'
+      : item.category === 'earrings'
+      ? 'earrings'
+      : 'ring');
+
+  // Dynamic price calculation
   const basePrice = item.price;
   const metalMultiplier =
-    selectedMetal === 'gold24k' ? 1.15 : selectedMetal === 'gold22k' ? 1.0 : selectedMetal === 'rosegold' ? 0.95 : 1.25;
+    selectedMetal === 'gold24k' ? 1.15 : selectedMetal === 'gold22k' ? 1.0 : selectedMetal === 'rosegold' ? 0.95 : 1.2;
   const gemMultiplier =
     selectedGemstone === 'diamond' ? 1.0 : selectedGemstone === 'sapphire' ? 0.9 : selectedGemstone === 'emerald' ? 0.85 : 0.95;
-  const caratMultiplier = (caratSize / (item.carat || 1.5));
-  const finalPrice = Math.round(basePrice * metalMultiplier * ((gemMultiplier * caratMultiplier * 0.4) + 0.6));
+  const finalPrice = Math.round(basePrice * metalMultiplier * gemMultiplier);
 
   const handleAdd = () => {
     setAddedAnimation(true);
@@ -45,14 +58,14 @@ export const Product3DModal: React.FC<Props> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-md p-3 sm:p-6 animate-in fade-in duration-200">
-      <div className="bg-[#FAF7F2] text-[#1F1615] rounded-3xl max-w-5xl w-full max-h-[92vh] overflow-y-auto border-2 border-[#D4AF37]/50 shadow-2xl flex flex-col relative">
-        {/* Header bar */}
-        <div className="p-4 sm:p-5 border-b border-[#D4AF37]/30 flex items-center justify-between bg-white/60">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-3 sm:p-6 animate-in fade-in duration-200">
+      <div className="bg-[#FAF7F2] text-[#1F1615] rounded-3xl max-w-5xl w-full max-h-[92vh] overflow-y-auto border border-[#D4AF37]/50 shadow-2xl flex flex-col relative">
+        {/* Header */}
+        <div className="p-4 border-b border-stone-200 flex items-center justify-between bg-white/70">
           <div className="flex items-center gap-2">
-            <div className="w-2.5 h-2.5 rounded-full bg-[#10B981] animate-ping" />
-            <span className="font-cinzel text-xs font-bold text-[#4A1017] tracking-wider uppercase">
-              3D Interactive Bespoke Atelier • Leh Ladakh
+            <span className="w-2 h-2 rounded-full bg-[#10B981] animate-ping" />
+            <span className="text-xs font-bold text-[#4A1017] tracking-wider uppercase">
+              3D Interactive Jewellery Studio
             </span>
           </div>
           <button
@@ -64,14 +77,15 @@ export const Product3DModal: React.FC<Props> = ({
           </button>
         </div>
 
-        {/* Modal Body */}
+        {/* Body */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 p-4 sm:p-6">
-          {/* Left: 3D Canvas Studio */}
-          <div className="lg:col-span-7 bg-gradient-to-b from-stone-50 via-white to-stone-100 rounded-2xl border border-stone-200 shadow-inner relative overflow-hidden min-h-[420px] sm:min-h-[500px]">
+          {/* 3D Canvas Studio */}
+          <div className="lg:col-span-7 bg-[#1C1817] rounded-2xl border border-stone-800 shadow-inner relative overflow-hidden min-h-[420px] sm:min-h-[480px]">
             <ThreeJewelleryViewer
               selectedMetal={selectedMetal}
               selectedGemstone={selectedGemstone}
               caratSize={caratSize}
+              initialOrnament={initialOrnament}
               onMetalChange={setSelectedMetal}
               onGemstoneChange={setSelectedGemstone}
               onCaratChange={setCaratSize}
@@ -79,19 +93,14 @@ export const Product3DModal: React.FC<Props> = ({
             />
           </div>
 
-          {/* Right: Customization Controls & Pricing */}
-          <div className="lg:col-span-5 flex flex-col justify-between space-y-5">
+          {/* Simple, Understandable Customization Controls */}
+          <div className="lg:col-span-5 flex flex-col justify-between space-y-4">
             <div>
-              <div className="flex items-center justify-between text-xs text-stone-500 mb-1">
-                <span className="font-bold tracking-wider uppercase text-[#8C6D23]">
-                  {item.collection}
-                </span>
-                <span className="bg-[#FAF1E4] text-[#6B1724] px-2 py-0.5 rounded-full font-bold text-[10px] border border-[#D4AF37]/30">
-                  BIS 916 HALLMARKED
-                </span>
+              <div className="text-xs text-stone-500 font-medium mb-1">
+                {item.purity} • {item.weightGrams} Grams
               </div>
 
-              <h2 className="font-cormorant text-2xl sm:text-3xl font-bold text-[#2B090F] leading-snug">
+              <h2 className="font-playfair text-2xl sm:text-3xl font-bold text-[#2B090F] leading-tight">
                 {item.name}
               </h2>
 
@@ -99,26 +108,25 @@ export const Product3DModal: React.FC<Props> = ({
                 {item.description}
               </p>
 
-              {/* Price Highlight */}
+              {/* Price Banner */}
               <div className="mt-4 p-3.5 bg-white rounded-2xl border border-stone-200 flex items-baseline justify-between">
                 <div>
                   <span className="text-[10px] uppercase font-bold text-stone-400 tracking-wider block">
-                    Total Estimated Value
+                    Estimated Price
                   </span>
-                  <div className="font-cinzel text-2xl font-bold text-[#4A1017]">
+                  <div className="font-playfair text-2xl font-bold text-[#4A1017]">
                     ₹{finalPrice.toLocaleString('en-IN')}
                   </div>
                 </div>
-                <div className="text-right text-[11px] text-stone-500">
-                  <div>Net Weight: {item.weightGrams}g</div>
-                  <div className="text-[#10B981] font-semibold">Free Karatmeter Testing</div>
+                <div className="text-right text-[11px] text-[#10B981] font-semibold">
+                  BIS 916 Certified
                 </div>
               </div>
 
-              {/* Metal Alloy Selector */}
+              {/* Metal Selection */}
               <div className="mt-4">
                 <label className="text-xs font-bold text-[#4A1017] uppercase tracking-wider block mb-1.5">
-                  Select Precious Metal & Purity:
+                  Gold & Metal:
                 </label>
                 <div className="grid grid-cols-2 gap-2">
                   {(Object.keys(METAL_CONFIG) as MetalType[]).map((metalKey) => {
@@ -131,11 +139,11 @@ export const Product3DModal: React.FC<Props> = ({
                         onClick={() => setSelectedMetal(metalKey)}
                         className={`p-2 rounded-xl text-left border text-xs transition-all ${
                           isSelected
-                            ? 'bg-[#4A1017] text-white border-[#4A1017] shadow-sm'
+                            ? 'bg-[#4A1017] text-white border-[#4A1017] shadow-xs font-semibold'
                             : 'bg-white text-stone-700 border-stone-200 hover:border-stone-400'
                         }`}
                       >
-                        <div className="font-bold">{cfg.name}</div>
+                        <div>{cfg.name}</div>
                         <div className="text-[10px] opacity-80">{cfg.label}</div>
                       </button>
                     );
@@ -143,10 +151,10 @@ export const Product3DModal: React.FC<Props> = ({
                 </div>
               </div>
 
-              {/* Gemstone Selector */}
+              {/* Gemstone Selection */}
               <div className="mt-4">
                 <label className="text-xs font-bold text-[#4A1017] uppercase tracking-wider block mb-1.5">
-                  Select Center Gemstone:
+                  Center Gemstone:
                 </label>
                 <div className="grid grid-cols-2 gap-2">
                   {(Object.keys(GEM_CONFIG) as GemstoneType[]).map((gemKey) => {
@@ -159,43 +167,68 @@ export const Product3DModal: React.FC<Props> = ({
                         onClick={() => setSelectedGemstone(gemKey)}
                         className={`p-2 rounded-xl text-left border text-xs transition-all ${
                           isSelected
-                            ? 'bg-[#B38F2C] text-white border-[#B38F2C] shadow-sm'
+                            ? 'bg-[#B38F2C] text-white border-[#B38F2C] shadow-xs font-semibold'
                             : 'bg-white text-stone-700 border-stone-200 hover:border-stone-400'
                         }`}
                       >
-                        <div className="font-bold">{gem.name}</div>
-                        <div className="text-[10px] opacity-80">{gem.cut}</div>
+                        <div>{gem.name}</div>
                       </button>
                     );
                   })}
                 </div>
               </div>
 
-              {/* Ring Size Selector */}
-              <div className="mt-4">
-                <div className="flex items-center justify-between mb-1.5">
-                  <label className="text-xs font-bold text-[#4A1017] uppercase tracking-wider">
+              {/* Ring Size Option (Only if Ring) */}
+              {initialOrnament === 'ring' && (
+                <div className="mt-4">
+                  <label className="text-xs font-bold text-[#4A1017] uppercase tracking-wider block mb-1.5">
                     Ring Size:
                   </label>
-                  <span className="text-[10px] text-[#B38F2C] font-semibold flex items-center gap-1 cursor-pointer">
-                    <Ruler className="w-3 h-3" /> Size Guide
-                  </span>
+                  <select
+                    value={selectedRingSize}
+                    onChange={(e) => setSelectedRingSize(e.target.value)}
+                    aria-label="Select Ring Size"
+                    className="w-full bg-white border border-stone-300 rounded-xl px-3 py-2 text-xs font-medium text-stone-800 focus:outline-none focus:ring-2 focus:ring-[#6B1724]"
+                  >
+                    <option value="12 (Indian / 52mm)">Size 12 (52mm)</option>
+                    <option value="14 (Indian / 54mm)">Size 14 (Standard Bridal / 54mm)</option>
+                    <option value="16 (Indian / 56mm)">Size 16 (56mm)</option>
+                    <option value="18 (Indian / 58mm)">Size 18 (58mm)</option>
+                  </select>
                 </div>
-                <select
-                  value={selectedRingSize}
-                  onChange={(e) => setSelectedRingSize(e.target.value)}
-                  className="w-full bg-white border border-stone-300 rounded-xl px-3 py-2 text-xs font-medium text-stone-800 focus:outline-none focus:ring-2 focus:ring-[#6B1724]"
+              )}
+
+              {/* Quick EMI & Rental triggers */}
+              <div className="mt-4 flex gap-2">
+                {item.isAvailableForRent && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onClose();
+                      onOpenRental?.(item);
+                    }}
+                    className="flex-1 py-2 px-3 bg-[#FAF1E4] hover:bg-[#F3E5CC] text-[#8C6D23] rounded-xl text-xs font-bold border border-[#D4AF37]/50 flex items-center justify-center gap-1.5 transition-all"
+                  >
+                    <Clock className="w-3.5 h-3.5" />
+                    <span>Rent ₹{item.rentalPricePerDay?.toLocaleString('en-IN')}/day</span>
+                  </button>
+                )}
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    onClose();
+                    onOpenEMI?.(finalPrice);
+                  }}
+                  className="flex-1 py-2 px-3 bg-white hover:bg-stone-50 text-stone-700 rounded-xl text-xs font-semibold border border-stone-300 flex items-center justify-center gap-1.5 transition-all"
                 >
-                  <option value="12 (Indian / 52mm)">Size 12 (Indian / 52mm)</option>
-                  <option value="14 (Indian / 54mm)">Size 14 (Standard Bridal / 54mm)</option>
-                  <option value="16 (Indian / 56mm)">Size 16 (Indian / 56mm)</option>
-                  <option value="18 (Indian / 58mm)">Size 18 (Indian / 58mm)</option>
-                  <option value="20 (Indian / 60mm)">Size 20 (Indian / 60mm)</option>
-                </select>
+                  <Calculator className="w-3.5 h-3.5 text-[#4A1017]" />
+                  <span>0% EMI Plans</span>
+                </button>
               </div>
             </div>
 
-            {/* Modal Actions */}
+            {/* Actions */}
             <div className="pt-4 border-t border-stone-200 flex items-center gap-3">
               <button
                 type="button"
@@ -213,7 +246,7 @@ export const Product3DModal: React.FC<Props> = ({
               <button
                 type="button"
                 onClick={handleAdd}
-                className="flex-1 py-3 px-4 bg-gradient-to-r from-[#4A1017] to-[#6B1724] text-white rounded-xl font-bold text-xs uppercase tracking-wider shadow-lg hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-2"
+                className="flex-1 py-3 px-4 bg-[#4A1017] hover:bg-[#681822] text-white rounded-xl font-bold text-xs uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2 active:scale-95"
               >
                 {addedAnimation ? (
                   <>
@@ -223,7 +256,7 @@ export const Product3DModal: React.FC<Props> = ({
                 ) : (
                   <>
                     <ShoppingBag className="w-4 h-4 text-[#F3DE8A]" />
-                    <span>Add Configured 3D Piece to Bag</span>
+                    <span>Add to Bag</span>
                   </>
                 )}
               </button>

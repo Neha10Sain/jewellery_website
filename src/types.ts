@@ -2,6 +2,8 @@ export type MetalType = 'gold24k' | 'gold22k' | 'rosegold' | 'platinum' | 'leh_a
 
 export type GemstoneType = 'diamond' | 'sapphire' | 'emerald' | 'ruby';
 
+export type OrnamentType = 'ring' | 'necklace' | 'bangle' | 'earrings';
+
 export interface BullionRate {
   name: string;
   purity: string;
@@ -13,7 +15,8 @@ export interface BullionRate {
 export interface JewelleryItem {
   id: string;
   name: string;
-  category: 'rings' | 'necklaces' | 'earrings' | 'pendants' | 'mangalsutra' | 'coins';
+  category: 'rings' | 'necklaces' | 'earrings' | 'bangles' | 'pendants' | 'coins';
+  ornamentType?: OrnamentType;
   collection: string;
   price: number;
   weightGrams: number;
@@ -28,6 +31,10 @@ export interface JewelleryItem {
   description: string;
   hallmarkCertified: boolean;
   has3DModel?: boolean;
+  // Rental feature fields
+  isAvailableForRent?: boolean;
+  rentalPricePerDay?: number;
+  rentalDeposit?: number;
 }
 
 export interface Showroom {
@@ -42,7 +49,7 @@ export interface Showroom {
   rating: number;
   reviewsCount: number;
   image: string;
-  mapCoords: { x: number; y: number }; // percentage on stylized Ladakh map
+  mapCoords: { x: number; y: number };
   privileges: string[];
   features: string[];
 }
@@ -54,4 +61,18 @@ export interface CartItem {
   selectedGemstone: GemstoneType;
   ringSize?: string;
   quantity: number;
+  isRental?: boolean;
+  rentalDays?: number;
+  rentalStartDate?: string;
+}
+
+export interface PromotionalOffer {
+  id: string;
+  title: string;
+  code: string;
+  discountPercent: number;
+  description: string;
+  badge: string;
+  expiryDate: string;
+  isActive: boolean;
 }
